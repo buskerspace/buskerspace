@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+<<<<<<< HEAD
 from django.db import models
 
 
@@ -29,3 +30,7 @@ class Following(models.Model):
     following =
 
 
+=======
+
+from django.db import models
+>>>>>>> origin/master
