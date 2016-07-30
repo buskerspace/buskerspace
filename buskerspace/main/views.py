@@ -21,7 +21,14 @@ def map(request):
 	return render(request, 'map.html', { 'events': events })
 
 def createEvent(request):
-	return render(request, 'newevent.html')
+	if 'buskeremail' not in request.POST:
+		return render(request, 'newevent.html')
+	else:
+		buskeremail
+		titledesc
+		buskeremail
+		lat
+		lng
 
 def results(request):
     buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))
