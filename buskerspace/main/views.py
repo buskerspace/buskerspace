@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.utils import timezone
 from django.template.defaulttags import register
-from .models import Event, Busker
+from .models import Event, Busker, User
 
 def search(request):
 	# Display results here.
@@ -25,3 +25,14 @@ def map(request):
 	# Display nearby buskers
 	events = Event.objects.filter(event_datetime__lte=timezone.now())
 	return render(request, 'map.html', { 'events': events })
+
+def login(request):
+	# hacky log in
+	user = User.objects.filter(email__iexact=request.GET.get('email'))
+	if not user:
+		user = User(email=request.GET.get('email'))
+		user.save()
+	else:
+		user = user[0]
+	request.session['id'] = user.pk;
+	return HttpResponseRedirect('/')

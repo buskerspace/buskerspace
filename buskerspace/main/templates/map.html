@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -5,7 +6,8 @@
     <style>
        #map {
         width: 100%;
-        height: 700px;
+        height: 90vh;
+        position: relative;
       }
 
      .eventtitle {
@@ -19,14 +21,19 @@
 
       font-size: 10px;
 
-     } 
+     }
 
     </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-<script type="text/javascript">var map = undefined;
+<script type="text/javascript">
+function onSignIn(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	//window.location.assign("/login?email=" + profile.getEmail());
+}
+var map = undefined;
 var events = undefined;
 var filters = undefined;
 
@@ -39,6 +46,12 @@ function initMap() {
         zoom: 16,
         center: initialCoords
     });
+
+    onLoad();
+}
+
+/* Initialise JavaScript */
+function onLoad() {
 
     events = {
         musicalEvents: [
@@ -53,7 +66,6 @@ function initMap() {
     };
 
     filters = {
-        distance: 20,
         musicalEvents: true,
         performanceEvents: true,
         otherEvents: true
@@ -71,7 +83,7 @@ function initMap() {
 
     addEvent(event);
 	
-	{% for e in events %}
+		{% for e in events %}
 	event = {
 		lat: {{ e.event_lat }},
 		lng: {{ e.event_lng }},
@@ -131,12 +143,15 @@ function addEvent(event) {
     windowDiv.appendChild(windowName);
     windowDiv.appendChild(windowDesc);
 
-    windowTitle.appendChild(
-        document.createTextNode(event.title));
-    windowName.appendChild(
-        document.createTextNode(event.buskername));
-    windowDesc.appendChild(
-        document.createTextNode(event.desc));
+    var element = document.createElement("span");
+    element.innerHTML = event.title;
+    windowTitle.appendChild(element);
+    element = document.createElement("span");
+    element.innerHTML = event.buskername;
+    windowName.appendChild(element);
+    element = document.createElement("span");
+    element.innerHTML = event.desc;
+    windowDesc.appendChild(element);
 
     windowName.setAttribute("href", "/profile/" + event.buskerid + "/");
 
@@ -190,38 +205,40 @@ function filterEvents() {
     var toggle;
 
     // Musical
-    toggle = document.getElementById("checkbox-1").value;
+    toggle = document.getElementById("checkbox-1").checked;
+
     if (toggle != filters.musicalEvents) {
         setVisibility(events.musicalEvents, toggle);
         filters.musicalEvents = toggle;
     }
 
     // Performance
-    toggle = document.getElementById("checkbox-2").value;
+    toggle = document.getElementById("checkbox-2").checked;
     if (toggle != filters.performanceEvents) {
         setVisibility(events.performanceEvents, toggle);
-        filters.musicalEvents = toggle;
+        filters.performanceEvents = toggle;
     }
 
     // Other
-    toggle = document.getElementById("checkbox-3").value;
+    toggle = document.getElementById("checkbox-3").checked;
     if (toggle != filters.otherEvents) {
         setVisibility(events.otherEvents, toggle);
-        filters.musicalEvents = toggle;
+        filters.otherEvents = toggle;
     }
 
     function setVisibility(eventList, toggle) {
 
-        for (var i = 0, event; event = eventList[i]; i++) {
+        for (var i = 1, event; event = eventList[i]; i++) {
             if (toggle)
                 event.marker.setMap(map);
             else
                 event.marker.setMap(null);
         }
     }
-}
-</script>
+}</script>
 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="143584194785-04a6vco4k8jt941j70gq667f899jnin1.apps.googleusercontent.com">
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
 </script>
 <script>
@@ -241,8 +258,6 @@ function filterEvents() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buskerspace: Home</title>
@@ -265,6 +280,8 @@ function filterEvents() {
     </div>
   </header>
   <div class="mdl-layout__drawer">
+	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+	<a href="#" onclick="gapi.auth2.getAuthInstance().signOut()">Sign out</a>
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="search.html">Search</a>
@@ -276,27 +293,26 @@ function filterEvents() {
     <span class="mdl-layout-title">Map Filters</></span>
 
     <div class="mdl-navigation">
-      <a class="mdl-navigation__link">Maximum Distance: XX km</a>
-      <!-- Default Slider -->
-    <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0">
 
     <a class="mdl-navigation__link">Genres</a>
 
 <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
   <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-  <span class="mdl-checkbox__label">Music</span>
+  <span class="mdl-checkbox__label">Musician</span>
 </label>
 <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
   <span class="mdl-checkbox__label">Performer</span>
 </label>
 <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked>
   <span class="mdl-checkbox__label">Other</span>
 </label>
+<!-- Raised button with ripple -->
+<button onclick="filterEvents()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+  Apply
+</button>
     </div>  
-
-
     
   </div>
   <main class="mdl-layout__content">
@@ -311,3 +327,4 @@ function filterEvents() {
 
 </body>
 </html>
+

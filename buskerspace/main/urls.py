@@ -9,4 +9,6 @@ urlpatterns = [
 	url(r'^search/', views.search, name='search'),
 	# path is /search/USER_ID/
 	url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile, name='profile'),
+	# path is /login
+	url(r'^login', views.login, name="login")
 ]
