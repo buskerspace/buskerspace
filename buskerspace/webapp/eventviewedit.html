@@ -130,7 +130,7 @@
                            </div>
                         </form>
                         <input id="location" class="controls" type="text" placeholder="Enter a location">
-                        <a class="mdl-navigation__link">Select the location of your performance on the map below: </a>    
+                        <a class="mdl-navigation__link">Adjust the the location of your performance on the map below: </a>    
                         <br>
                         <br>
                         <div id="map-edit"></div>
@@ -145,22 +145,21 @@
                         <form action="#">
                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration">
-                              <label class="mdl-textfield__label" for="sample4">How many hours is your event?</label>
+                              <label class="mdl-textfield__label" for="sample4">Update the duration of your event...</label>
                               <span class="mdl-textfield__error">Input is not a number!</span>
                            </div>
                         </form>
-                        <!-- Simple Textfield -->
-                        <form action="#">
-                           <div class="mdl-textfield mdl-js-textfield">
-                              <input class="mdl-textfield__input" type="text" id="desc">
-                              <label class="mdl-textfield__label" for="sample1">Let people know what is great about your event</label>
-                           </div>
-                        </form>
-                        <br>
+                        <!-- Floating Multiline Textfield -->
+                         <form action="#">
+                            <div class="mdl-textfield mdl-js-textfield">
+                               <textarea class="mdl-textfield__input" type="text" rows= "3" id="desc" ></textarea>
+                               <label class="mdl-textfield__label" for="sample5">Update your description...</label>
+                            </div>
+                         </form>
                         <div class="center">
                            <a ref="javascript:{}" onclick="submitEvent();">
                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-                           Submit Event
+                           Update Event
                            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
                            </a>
                         </div>
