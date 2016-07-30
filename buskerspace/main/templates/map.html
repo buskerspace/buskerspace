@@ -21,7 +21,7 @@
 
       font-size: 10px;
 
-     }
+     } 
 
     </style>
 
@@ -35,7 +35,6 @@ var filters = undefined;
 
 var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/';
 var icons = undefined;
-var shapes = undefined;
 
 /* Initialise the map */
 function initMap() {
@@ -54,7 +53,6 @@ function initMap() {
                 position.coords.latitude,
                 position.coords.longitude
             ));
-            console.log("Lat: " + initialCoords.lat + ", Long: " + initialCoords.lng);
         }, function(error) {
             console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
         });
@@ -78,22 +76,6 @@ function initMap() {
             size: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(0, 32)
-        },
-        undef: ''
-    };
-
-    shapes = {
-        musical: {
-            coords: [1,1,  1,20,  18,20,  18,1],
-            type: 'poly'
-        },
-        performance: {
-            coords: [1,1,  1,20,  18,20,  18,1],
-            type: 'poly'
-        },
-        other: {
-            coords: [1,1,  1,20,  18,20,  18,1],
-            type: 'poly'
         },
         undef: ''
     };
@@ -155,24 +137,19 @@ function addEvent(event) {
     // Parse event
 
     var icon = '';
-    var shape = '';
 
     switch (event.type) {
         case 'musical':
             icon = icons.musical;
-            shape = shapes.musical;
             break;
         case 'performance':
             icon = icons.performance;
-            shape = shapes.performance;
             break;
         case 'other':
             icon = icons.other;
-            shape = shapes.other;
             break;
         default:
             icon = icons.undef;
-            shape = shapes.undef;
             break;
     }
 
@@ -277,9 +254,6 @@ function filterEvents() {
     }
 }</script>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="143584194785-04a6vco4k8jt941j70gq667f899jnin1.apps.googleusercontent.com">
-
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
 </script>
 <script>
@@ -317,19 +291,19 @@ function filterEvents() {
         <a class="mdl-navigation__link" href="/search/">Search</a>
         <a class="mdl-navigation__link" href="/map/">Map</a>
         <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
       </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" onclick="gapi.auth2.getAuthInstance().signOut()">Sign out</a>
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="/search/">Search</a>
       <a class="mdl-navigation__link" href="/map/">Map</a>
       <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
+      <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
       <br>
-    </nav>  
+    </nav> 
 
     <span class="mdl-layout-title">Map Filters</></span>
 
