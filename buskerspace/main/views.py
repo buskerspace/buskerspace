@@ -25,7 +25,8 @@ def createEvent(request):
 		return render(request, 'newevent.html')
 	else:
 		#buskeremail
-		#titledesc
+		#title
+		#desc
 		#buskeremail
 		#lat
 		#lng
@@ -34,7 +35,18 @@ def createEvent(request):
 		busker = Busker.objects.get(email=request.post.get['buskeremail'])
 		if not busker:
 			return render(request, 'newevent.html', { 'error_message': 'Busker does not exist!' })
-		
+		try:
+			event = Event(event_datetime=request.post.get['date'],
+						  event_duration=request.post.get['time'],
+						  event_title=request.post.get['title'],
+						  event_desc=request.post.get['desc'],
+						  event_lat=request.post.get['lat'],
+						  event_lng=request.post.get['lng'],
+						  busker=busker.pkl);
+		except (KeyError):
+			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
+		else:
+			return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
 
 def results(request):
     buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))
