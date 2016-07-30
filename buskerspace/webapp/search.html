@@ -15,13 +15,21 @@ text-align: center;
 
 display: block;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
 
 }
 
-.space {
+.smallimg {
 
-border-spacing: 10%;
+height: 50%;
+width: 50%;
+
+}
+
+.center1 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
@@ -76,37 +84,44 @@ border-spacing: 10%;
     </nav>
   </div>
   <main class="mdl-layout__content">
-    <div class="page-content"><!-- Your content goes here --></div>
+   <img class="centerimg smallimg" src="hat.svg">
 
-<img class="centerimg" src="search-256.png">
-
-    <!-- Simple Textfield -->
-<form action="#" class="center">
-  <div class="mdl-textfield mdl-js-textfield">
+<!-- Simple Textfield -->
+<form class="center1" action="#">
+  <div class="center1 mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Enter a busker's name or ...</label>
+    <label class="mdl-textfield__label" for="sample1">Enter the name of a busker...</label>
   </div>
-  <div>
-  <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-  <span class="mdl-checkbox__label">Musician</span>
-</label> 
-<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
+</form>
+
+<div class="center1">
+<span class ="center1">
+<label for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked="">
+  <span class="mdl-checkbox__label">Musicians</span>
+</label>
+
+<label for="checkbox-2">
+  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked="">
   <span class="mdl-checkbox__label">Performer</span>
 </label>
-<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3/material">
-  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked>
+
+<label for="checkbox-3">
+  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked="">
   <span class="mdl-checkbox__label">Other</span>
 </label>
-</div>
-  <div class="space">
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" >Search</button>
-</div>
-</form>
-<!-- Raised button with ripple -->
+<span class ="center1">
+</div> 
 
-  </main>
+<div class="center">
+<!-- Raised button with ripple -->
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+  Search
+<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+</div>
+</div>
+</main>
 </div>
 
 </body>
