@@ -13,8 +13,21 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
-        center: initialCoords
+        center: initialCoords,
+        clickableIcons: false
     });
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            map.panTo(new google.maps.LatLng(
+                position.coords.latitude,
+                position.coords.longitude
+            ));
+            console.log("Lat: " + initialCoords.lat + ", Long: " + initialCoords.lng);
+        }, function(error) {
+            console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
+        });
+    }
 
     icons = {
         musical: {
@@ -81,6 +94,7 @@ function onLoad() {
     var event = {
         lat: -37.800089,
         lng: 144.964451,
+        eventid: 2016,
         title: 'UNIHACK2016',
         buskerid: 2016,
         buskername: 'Busker Space',
@@ -118,9 +132,6 @@ function addEvent(event) {
             break;
     }
 
-    console.log(icon);
-    console.log(shape);
-
     // Add marker
 
     var marker = new google.maps.Marker({
@@ -132,33 +143,16 @@ function addEvent(event) {
 
     // Create InfoWindow
 
-    var windowDiv   = document.createElement("div");
-    var windowTitle = document.createElement("p");
-    var windowName  = document.createElement("a");
-    var windowDesc  = document.createElement("p");
-
-    windowDiv.appendChild(windowTitle);
-    windowDiv.appendChild(windowName);
-    windowDiv.appendChild(windowDesc);
-
-    var element = document.createElement("span");
-    element.innerHTML = event.title;
-    windowTitle.appendChild(element);
-    element = document.createElement("span");
-    element.innerHTML = event.buskername;
-    windowName.appendChild(element);
-    element = document.createElement("span");
-    element.innerHTML = event.desc;
-    windowDesc.appendChild(element);
-
-    windowName.setAttribute("href", "/profile/" + event.buskerid + "/");
-
-    windowTitle.className = "eventtitle";
-    windowName.className  = "eventname";
-    windowDesc.className  = "eventdesc";
+    var window = '<div onclick="location.href = \'/events/' + event.eventid + '/\'" style="cursor:pointer">' +
+        '<p><span class="eventtitle">' + event.title + '</span></p>' +
+        '<p><a href="/profile/' + event.buskerid + '/">' +
+            '<span class="eventname">' + event.buskername + '</span>' + 
+        '</a></p>' +
+        '<p><span class="eventdesc">' + event.desc + '</span></a></p>' +
+        '</div>';
 
     var infoWindow = new google.maps.InfoWindow({
-        content: windowDiv
+        content: window
     });
 
     // Add callbacks
@@ -167,8 +161,12 @@ function addEvent(event) {
         infoWindow.open(map, marker);
     });
 
-    google.maps.event.addListener(map, "click", function() {
+    google.maps.event.addListener(map, 'click', function() {
         infoWindow.close();
+    });
+
+    infoWindow.addListener('', function() {
+        window.location.href = "/events/" + event.eventid + "/";
     });
 
     // Add event to list
