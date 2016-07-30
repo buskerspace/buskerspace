@@ -37,74 +37,70 @@
                <div class="mdl-layout-spacer"></div>
                <!-- Navigation. We hide it in small screens. -->
                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                  <a class="mdl-navigation__link" href="search.html">Search</a>
-                  <a class="mdl-navigation__link" href="map.html">Map</a>
-                  <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-                  <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+                  <a class="mdl-navigation__link" href="/search/">Search</a>
+                  <a class="mdl-navigation__link" href="/">Map</a>
+                  <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+                  <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
                </nav>
             </div>
          </header>
          <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Menu</span>
             <nav class="mdl-navigation">
-               <a class="mdl-navigation__link" href="search.html">Search</a>
-               <a class="mdl-navigation__link" href="map.html">Map</a>
-               <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-               <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+               <a class="mdl-navigation__link" href="/search/">Search</a>
+               <a class="mdl-navigation__link" href="/">Map</a>
+               <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+               <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
             </nav>
          </div>
          <main class="mdl-layout__content">
             <div class="page-content center">
                <!-- Your content goes here -->
+			   {% if error_message %}
+				<h3>{{ error_message }}</h3>
+			   {% endif %}
                <!-- Simple Textfield -->
-               <form action="#">
+               <form action="/new/busker/" method="post">
+			   {% csrf_token %}
                   <div class="mdl-textfield mdl-js-textfield">
-                     <input class="mdl-textfield__input" type="text" id="name">
+                     <input class="mdl-textfield__input" type="text" name="name">
                      <label class="mdl-textfield__label" for="sample1">Name...</label>
                   </div>
-               </form>
-               <select>
+				  <br />
+               <select name="genre">
                   Genre
-                  <option value="Musician">Musician</option>
-                  <option value="Performer">Performer</option>
-                  <option value="Other">Other</option>
+                  <option value="musical">Musician</option>
+                  <option value="performance">Performer</option>
+                  <option value="other">Other</option>
                </select>
-               <!-- Simple Textfield -->
-               <form action="#">
+				  <br />
                   <div class="mdl-textfield mdl-js-textfield">
-                     <input class="mdl-textfield__input" type="text" id="desc">
+                     <input class="mdl-textfield__input" type="text" name="desc">
                      <label class="mdl-textfield__label" for="sample1">Description...</label>
                   </div>
-               </form>
-               <!-- Simple Textfield -->
-               <form action="#">
+				  <br />
                   <div class="mdl-textfield mdl-js-textfield">
-                     <input class="mdl-textfield__input" type="text" id="email">
+                     <input class="mdl-textfield__input" type="text" name="email">
                      <label class="mdl-textfield__label" for="sample1">Email...</label>
                   </div>
-               </form>
-               <!-- Simple Textfield -->
-               <form action="#">
+				  <br />
                   <div class="mdl-textfield mdl-js-textfield">
-                     <input class="mdl-textfield__input" type="password" id="password">
+                     <input class="mdl-textfield__input" type="password" name="password">
                      <label class="mdl-textfield__label" for="sample1">Password...</label>
                   </div>
-               </form>
-               <!-- Simple Textfield -->
-               <form action="#">
+				  <br />
                   <div class="mdl-textfield mdl-js-textfield">
-                     <input class="mdl-textfield__input" type="password" id="password1">
+                     <input class="mdl-textfield__input" type="password" name="passwordConf">
                      <label class="mdl-textfield__label" for="sample1">Confirm Password...</label>
                   </div>
-               </form>
+				  <br />
                <div class="center">
                   <!-- Raised button with ripple -->
-                  <a href="javascript:{}" onclick="">
-                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
+                  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
                   Submit
                   <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-                  </a>
                </div>
+			   </form>
             </div>
          </main>
       </div>

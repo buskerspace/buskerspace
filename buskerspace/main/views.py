@@ -17,9 +17,33 @@ def viewBusker(request, user_id):
 	events = Event.objects.filter(busker=user_id)
 	if not busker:
 		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.', })
-	#if email = request.POST.get('email'):
 		
-	return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, })
+	if 'email' not in request.POST:
+		return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, })
+	
+	b = Busker.objects.filter(email=request.POST.get('email'));
+	if not b:
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker does not exist!', 'busker': busker, 'events': events })
+		
+	password = make_password(password=request.POST.get('password'), salt=None, hasher='unsalted_md5')
+	b2 = Busker.objects.filter(pw_hash=password)
+	if not b2 or not (b2[0].email == b[0].email):
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Invalid password or email', 'busker': busker, 'events': events })
+	
+	b = Busker.objects.get(pk=user_id)
+	name = request.POST.get('name')
+	genre = request.POST.get('genre')
+	desc = request.POST.get('desc')
+	
+	if not name == "":
+		b.busker_name = name
+	if not genre == "":
+		b.genre = genre
+	if not desc == "":
+		b.busker_desc = desc
+		
+	b.save()
+	return render(request, 'buskerviewedit.html', { 'error_message': 'Success!', 'busker': busker, 'events': events })
 	
 def viewEvent(request, event_id):
 	try:
@@ -109,7 +133,29 @@ def createEvent(request):
 			return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
 			
 def createBusker(request):
-	return render(request, 'newbusker.html')
+	if 'email' not in request.POST:
+		return render(request, 'newbusker.html')
+		
+	busker = Busker.objects.filter(email=request.POST.get('email'))
+	if busker:
+		return render(request, 'newbusker.html', { 'error_message': 'Email address already in use!' })
+		
+	try:
+		name = request.POST.get('name')
+		genre = request.POST.get('genre')
+		desc = request.POST.get('desc')
+		email = request.POST.get('email')
+		pw = request.POST.get('password')
+		pwConf = request.POST.get('passwordConf')
+	except (KeyError):
+		return render(request, 'newbusker.html', { 'error_message': 'One or more fields left blank!' })
+		
+	if pw != pwConf:
+		return render(request, 'newbusker.html', { 'error_message': 'Passwords do not match!' })
+	
+	busker = Busker(email=email, pw_hash=make_password(password=pw, salt=None, hasher='unsalted_md5'), busker_desc=desc, busker_name=name, genre=genre)
+	busker.save()
+	return render(request, 'newbusker.html', { 'error_message': 'Success!' })
 
 def results(request):
     buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))

@@ -256,6 +256,24 @@ function submitEvent() {
     form.submit();
 }
 
+function getID() {
+	str = window.location.href;
+	list = str.split('/');
+	return list[list.length - 2];
+}
+
+function submitForm() {
+	 var path = "/view/busker/" + getID() + "/";
+	 var form = document.getElementById("incomp_form");
+	 form.setAttribute("action", path);
+	 var idElem = document.createElement("input");
+	 idElem.setAttribute("type", "hidden");
+	 idElem.setAttribute("name", "buskerid");
+	 idElem.setAttribute("value", getID());
+	 form.appendChild(idElem);
+	 form.submit();
+}
+
 function revGeocode(lat, lng, callback, precision=1) {
     var geocoder = new google.maps.Geocoder;
     geocoder.geocode(
@@ -297,20 +315,20 @@ function revGeocode(lat, lng, callback, precision=1) {
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
 
-        <a class="mdl-navigation__link" href="search.html">Search</a>
-        <a class="mdl-navigation__link" href="map.html">Map</a>
-        <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-        <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+        <a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
       </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="search.html">Search</a>
-      <a class="mdl-navigation__link" href="map.html">Map</a>
-      <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-      <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+      <a class="mdl-navigation__link" href="/search/">Search</a>
+      <a class="mdl-navigation__link" href="/">Map</a>
+      <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+      <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -327,7 +345,8 @@ function revGeocode(lat, lng, callback, precision=1) {
 
 {% if error_message %}
 <h4>{{ error_message }}</h4>
-{% else %}
+{% endif %}
+{% if busker %}
 <h1>{{ busker.busker_name }}</h1>
 <h3>Genre: {{ busker.genre }}</h3>
 <div style="margin: 5%">{{ busker.busker_desc }}</div>
@@ -377,21 +396,22 @@ function revGeocode(lat, lng, callback, precision=1) {
   </div>
   <div class="mdl-tabs__panel center" id="edit-panel">
   <!-- Simple Textfield -->
-<form action="" method="post">
+<form action="" method="post" id="incomp_form">
 {% csrf_token %}
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1" name="email">
+    <input class="mdl-textfield__input" type="text" id="inEmail" name="email">
     <label class="mdl-textfield__label" for="sample1">Enter your email...</label>
   </div>
   <br />
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1" name="name">
+    <input class="mdl-textfield__input" type="text" id="in" name="name">
     <label class="mdl-textfield__label" for="sample1">Enter a new name...</label>
   </div>
   <br />
                      <div class="text">Adjust your genre:
                       <select name="genre">
                        Genre
+						<option value="">No change</option>
                         <option value="musical">Musician</option>
                         <option value="performance">Performer</option>
                         <option value="other">Other</option>
@@ -408,7 +428,7 @@ function revGeocode(lat, lng, callback, precision=1) {
     <label class="mdl-textfield__label" for="sample1">Enter your access password...</label>
   </div>
   <br />
-<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+<button onclick="submitForm()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
   Update Event</button>
 </form>
 <br>
