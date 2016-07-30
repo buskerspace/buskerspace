@@ -33,6 +33,9 @@ function addEvent(event) {
         case 'musical':
             icon = images.musical;
             break;
+		default:
+			icon = images.undef;
+			break;
     }
 
     var marker = new google.maps.Marker({
