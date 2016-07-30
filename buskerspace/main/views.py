@@ -19,4 +19,4 @@ def profile(request, user_id):
 def map(request):
 	# Display nearby buskers
 	events = Event.objects.filter(event_datetime__lte=timezone.now())
-	return render(request, 'map.html')
+	return render(request, 'map.html', { 'events': events })

@@ -13,7 +13,47 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-<script type="text/javascript" src="map.js"></script>
+<script type="text/javascript">
+function initMap() {
+
+    var initialCoords = {lat: -37.800089, lng: 144.964451};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: initialCoords
+    });
+
+    var marker = new google.maps.Marker({
+        position: {lat: -37.800089, lng: 144.964451},
+        title: 'UNIHACK2016',
+        draggable: false,
+        animation: google.maps.Animation.DROP
+    });
+    marker.addListener('click', toggleBounce);
+
+    marker.setMap(map);
+
+	{% for event in events %}
+		alert("{{ event.event_lat }}, {{ event.event_lng }}");
+		marker = new google.maps.Marker({
+			position: {lat: {{ event.event_lat }}, lng: {{ event.event_lng }} },
+			title: "{{ event.event_title }}",
+			draggable: false,
+			animation: google.maps.Animation.DROP
+		});
+		marker.addListener('click', toggleBounce);
+		marker.setMap(map);
+	{% endfor %}
+
+
+    function toggleBounce() {
+        if (marker.getAnimation() !== null)
+            marker.setAnimation(null);
+        else
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
+</script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
 </script>
