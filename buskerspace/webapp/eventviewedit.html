@@ -12,11 +12,18 @@
   align-items: center;
 }
 
-     #map {
+     #map-view {
         width: 100%;
         height: 50vh;
         position: relative;
       }
+
+         #map-edit {
+        width: 100%;
+        height: 50vh;
+        position: relative;
+      }
+
 
 }
 
@@ -27,8 +34,12 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 <script type="text/javascript" src="eventmap2.js"></script>
+<script type="text/javascript" src="eventmap.js"></script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap&libraries=places">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMapView&libraries=places">
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMapEdit&libraries=places">
 </script>
 <script>
   window.fbAsyncInit = function() {
@@ -94,7 +105,7 @@
 <h5>Super interesting Genre</h5>
 <h6>Date: 23/09/1223 Time: 10AM Duation: 1 Hour</h6>
 
-    <div id="map"></div> <!--- map -->
+    <div id="map-view"></div> <!--- map -->
 
 <div style="margin: 5%">Hide at bottom of staircase to trip human climb a tree, wait for a fireman jump to fireman then scratch his face or play riveting piece on synthesizer keyboard so wake up human for food at 4am yet sleep on dog bed, force dog to sleep on floor but my left donut is missing, as is my right. Attack feet. </div>
 
@@ -109,6 +120,14 @@
     <label class="mdl-textfield__label" for="sample1">Enter busker email</label>
   </div>
 </form>
+
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="password" id="password">
+    <label class="mdl-textfield__label" for="sample1">Enter your password</label>
+  </div>
+</form>
+
       <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
@@ -123,7 +142,7 @@
 <br>
 <br>
 
-    <div id="map"></div> <!--- map -->
+    <div id="map-edit"></div> <!--- map -->
 <br>
 <a class="mdl-navigation__link">Enter a new date and time...</a>    
 <br>
