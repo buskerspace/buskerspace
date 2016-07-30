@@ -117,15 +117,22 @@ text-align: center;
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="title">
-    <label class="mdl-textfield__label" for="sample1">Title...</label>
+    <label class="mdl-textfield__label" for="sample1">What is your event called?</label>
   </div>
 </form>
     <input id="location" class="controls" type="text" placeholder="Enter a location">
+
+
+<a class="mdl-navigation__link">Select the location of your performance on the map below: </a>    
+<br>
+<br>
+
     <div id="map"></div> <!--- map -->
 <br>
 <a class="mdl-navigation__link">What is the date and time of your performance?</a>    
 <br>
-<input type="date" id="myDate" value="2016-08-1">
+<br>
+<input type="date" id="myDate" value="2016-08-1"> <!--W3 Schools for JS help -->
 
 <input type="time" id="myTime" value="12:00:00">
 
@@ -141,17 +148,17 @@ text-align: center;
       <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="title">
+    <input class="mdl-textfield__input" type="text" id="email">
     <label class="mdl-textfield__label" for="sample1">What is you email?</label>
   </div>
 </form>
   
 
-<!-- Simple Textfield -->
+<!-- Floating Multiline Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="desc">
-    <label class="mdl-textfield__label" for="sample1">Let people know what is great about your event</label>
+    <textarea class="mdl-textfield__input" type="text" rows= "3" id="desc" ></textarea>
+    <label class="mdl-textfield__label" for="sample5">Tell people why they should attend...</label>
   </div>
 </form>
 

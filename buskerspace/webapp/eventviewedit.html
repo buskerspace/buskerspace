@@ -5,12 +5,17 @@
 
 <style>
 
-.small {
+.center {
 
-  height: 30%;
-  width: 30%;
+    .center {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 
 }
+
+}
+
 
 </style>
 
@@ -35,14 +40,14 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buskerspace: Profile</title>
+    <title>Buskerspace: Event</title>
 
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Profile</span>
+      <span class="mdl-layout-title">View Event</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
@@ -67,22 +72,92 @@
   <main class="mdl-layout__content">
     <div class="page-content">
 
-      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
   <div class="mdl-tabs__tab-bar">
-      <a href="#starks-panel" class="mdl-tabs__tab is-active">View</a>
-      <a href="#lannisters-panel" class="mdl-tabs__tab">Edit</a>
-      <a href="#targaryens-panel" class="mdl-tabs__tab"></a>
-  </div>
-
-  <div class="mdl-tabs__panel is-active" id="starks-panel">
+      <a href="#view-panel" class="mdl-tabs__tab is-active">View</a>
+      <a href="#edit-panel" class="mdl-tabs__tab">Edit</a>
 
   </div>
-  <div class="mdl-tabs__panel" id="lannisters-panel">
+
+  <div class="mdl-tabs__panel is-active center" id="view-panel">
+    <ul>
+      <li>Eddard</li>
+      <li>Catelyn</li>
+      <li>Robb</li>
+      <li>Sansa</li>
+      <li>Brandon</li>
+      <li>Arya</li>
+      <li>Rickon</li>
+    </ul>
+  </div>
+  <div class="mdl-tabs__panel center" id="edit-panel">
+     <div class="page-content center">
+      <!-- Simple Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="title">
+    <label class="mdl-textfield__label" for="sample1">What is your event called?</label>
+  </div>
+</form>
+    <input id="location" class="controls" type="text" placeholder="Enter a location">
+
+
+<a class="mdl-navigation__link">Select the location of your performance on the map below: </a>    
+<br>
+<br>
+
+    <div id="map"></div> <!--- map -->
+<br>
+<a class="mdl-navigation__link">What is the date and time of your performance?</a>    
+<br>
+<br>
+<input type="date" id="myDate" value="2016-08-1"> <!--W3 Schools for JS help -->
+
+<input type="time" id="myTime" value="12:00:00">
+
+<!-- Numeric Textfield with Floating Label -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration">
+    <label class="mdl-textfield__label" for="sample4">How many hours is your event?</label>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+      <!-- Simple Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="email">
+    <label class="mdl-textfield__label" for="sample1">What is you email?</label>
+  </div>
+</form>
+  
+
+<!-- Simple Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="desc">
+    <label class="mdl-textfield__label" for="sample1">Let people know what is great about your event</label>
+  </div>
+</form>
+
+<br>
+<div class="center">
+
+<a ref="javascript:{}" onclick="submitEvent();">
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+  Create Event
+<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+</a>
+
+    </div>
+
+<br>
+</div>
+</div>
 
   </div>
-  <div class="mdl-tabs__panel" id="targaryens-panel">
- 
-  </div>
+
 </div>
 
     </div>
