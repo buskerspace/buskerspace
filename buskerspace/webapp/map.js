@@ -2,7 +2,7 @@ var map = undefined;
 var events = undefined;
 var filters = undefined;
 
-/* Initialise the map */
+/* Initialise JavaScript */
 function initMap() {
 
     var initialCoords = {lat: -37.800089, lng: 144.964451};
@@ -11,6 +11,11 @@ function initMap() {
         zoom: 16,
         center: initialCoords
     });
+
+    onLoad();
+}
+
+function onLoad() {
 
     events = {
         musicalEvents: [
@@ -25,7 +30,6 @@ function initMap() {
     };
 
     filters = {
-        distance: 20,
         musicalEvents: true,
         performanceEvents: true,
         otherEvents: true
