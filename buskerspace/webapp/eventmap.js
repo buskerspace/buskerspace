@@ -1,12 +1,23 @@
-var map = undefined;
+var mapEdit = undefined;
+var mapView = undefined;
 var marker = undefined;
 
-/* Initialise the map */
+var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/';
+var icons = undefined;
+
+/* Initialise both kinds of maps */
+function initMap() {
+    
+    initMapEdit();
+    initMapView();
+}
+
+/* Initialise the editable map */
 function initMapEdit() {
 
     var initialCoords = {lat: -37.800089, lng: 144.964451};
 
-    map = new google.maps.Map(document.getElementById('map-edit'), {
+    mapEdit = new google.maps.Map(document.getElementById('map-edit'), {
         zoom: 16,
         center: initialCoords,
         clickableIcons: false,
@@ -14,14 +25,14 @@ function initMapEdit() {
     });
 
     var input = document.getElementById('location');
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    mapEdit.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     var autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo('bounds', map)
+    autocomplete.bindTo('bounds', mapEdit)
 
     marker = new google.maps.Marker({
-        map: map,
-        position: map.getCenter(),
+        map: mapEdit,
+        position: mapEdit.getCenter(),
         draggable: true
     });
 
@@ -30,32 +41,106 @@ function initMapEdit() {
         if (!place.geometry)
             return;
         if (place.geometry.viewport)
-            map.fitBounds(place.geometry.viewport);
+            mapEdit.fitBounds(place.geometry.viewport);
         else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
+            mapEdit.setCenter(place.geometry.location);
+            mapEdit.setZoom(17);
         }
         marker.setPosition(place.geometry.location);
     });
 
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            map.panTo(new google.maps.LatLng(
+            mapEdit.panTo(new google.maps.LatLng(
                 position.coords.latitude,
                 position.coords.longitude
             ));
-            marker.setPosition(map.getCenter());
+            marker.setPosition(mapEdit.getCenter());
         }, function(error) {
             console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
         });
     }
 
-    google.maps.event.addListener(map, 'click', function(click) {
+    google.maps.event.addListener(mapEdit, 'click', function(click) {
         document.getElementById("location")
             .value = click.latLng.lat().toPrecision(11) + ", " + click.latLng.lng().toPrecision(11);
         marker.setPosition(click.latLng);
-        map.panTo(click.latLng);
+        mapEdit.panTo(click.latLng);
     });
+}
+
+/* Initialise the read-only map */
+function initMapView() {
+
+    var event = {
+        lat: -37.800089,
+        lng: 144.964451,
+        title: 'UNIHACK2016',
+        type: 'musical'
+    };
+
+    mapView = new google.maps.Map(document.getElementById('map-view'), {
+        zoom: 17,
+        center: new google.maps.LatLng(event.lat, event.lng),
+        clickableIcons: false,
+        draggable: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: false,
+        scrollwheel: false
+    });
+
+    icons = {
+        musical: {
+            url: imgurl + 'icon-musical.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        performance: {
+            url: imgurl + 'icon-performance.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        other: {
+            url: imgurl + 'icon-other.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        undef: ''
+    };
+
+    // Parse event
+
+    var icon = '';
+
+    switch (event.type) {
+        case 'musical':
+            icon = icons.musical;
+            break;
+        case 'performance':
+            icon = icons.performance;
+            break;
+        case 'other':
+            icon = icons.other;
+            break;
+        default:
+            icon = icons.undef;
+            break;
+    }
+
+    // Add marker
+
+    var marker = new google.maps.Marker({
+        map: mapView,
+        position: {lat: event.lat, lng: event.lng},
+        title: event.title,
+        icon: icon,
+        clickable: false
+    });
+
 }
 
 function submitEvent() {
@@ -111,4 +196,26 @@ function submitEvent() {
 
     document.body.appendChild(form);
     form.submit();
+}
+
+function revGeocode(lat, lng) {
+    geocoder.geocode(
+        {
+            'location': {
+                lat: lat,
+                lng: lng
+            }
+        },
+        function(results, status) {
+            if (status === 'OK') {
+                if (results[1]) {
+                    console.log(results[1].formatted_address);
+                } else {
+                    console.log('Reverse geocoding failed for (' +
+                        lat + ', ' + lng);
+                }
+            } else {
+                console.log('Geocoder failed with error: ' + status);
+            }
+        });
 }
