@@ -1,46 +1,27 @@
 function initMap() {
 
-    var mapDiv = document.getElementById('map');
+    var initialCoords = {lat: -37.800089, lng: 144.964451};
 
-    var map = new google.maps.Map(mapDiv, {
-        center: {lat: -37.8136 lng: 144.9631},
+    var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
-        styles: [
-        {
-            featureType: 'poi',
-            elementType: 'geometry',
-            stylers: [
-                { visibility: 'on' },
-                { hue: '#1000e0' }
-            ]
-        }
-        ]
+        center: initialCoords
     });
 
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var marker = new google.maps.Marker({
+        position: {lat: -37.800089, lng: 144.964451},
+        title: 'UNIHACK2016',
+        draggable: false,
+        animation: google.maps.Animation.DROP
+    });
 
-    var icons = {
-        info: {
-            icon: iconBase + 'info-i_maps.png'
-        }
-    };
+    marker.addListener('click', toggleBounce);
 
-    function addMarker(feature) {
-        var marker = new google.maps.Marker({
-            position: feature.position,
-            icon: icons[feature.type].icon,
-            map: map
-        });
-    }
+    marker.setMap(map);
 
-    var features = [
-        {
-            position: new google.maps.LatLng(-37.8136, 144.9631),
-            type: 'info'
-        }
-    ];
-
-    for (var i = 0, feature; feature = features[i]; i++) {
-        addMarker(feature);
+    function toggleBounce() {
+        if (marker.getAnimation() !== null)
+            marker.setAnimation(null);
+        else
+            marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
