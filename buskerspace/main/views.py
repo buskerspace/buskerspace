@@ -6,14 +6,8 @@ from django.template.defaulttags import register
 from .models import Event, Busker, User
 
 def search(request):
-	# Display results here.
-	try:
-		matches = Busker.objects.filter(busker_name__icontains=request.POST['query'])
-	except (KeyError):
-		return render(request, "search.html")
-	else:
-		return render(request, 'results.html', { "matches": matches })
-
+	return render(request, "search.html")
+	
 def profile(request, user_id):
 	# Stub to display an account page
 	# if ACCOUNT PAGE IS LOGGED IN USER:
@@ -38,3 +32,5 @@ def login(request):
 	return HttpResponseRedirect('/')
 
 def results(request):
+    buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))
+    return render(request, 'searchresults.html', { 'buskers': buskers })
