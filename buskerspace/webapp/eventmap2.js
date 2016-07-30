@@ -5,7 +5,7 @@ var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/b
 var icons = undefined;
 
 /* Initialise the map */
-function initMap() {
+function initMapView() {
 
     var event = {
         lat: -37.800089,
@@ -14,7 +14,7 @@ function initMap() {
         type: 'musical'
     };
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map-view'), {
         zoom: 17,
         center: new google.maps.LatLng(event.lat, event.lng),
         clickableIcons: false,

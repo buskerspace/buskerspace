@@ -2,11 +2,11 @@ var map = undefined;
 var marker = undefined;
 
 /* Initialise the map */
-function initMap() {
+function initMapEdit() {
 
     var initialCoords = {lat: -37.800089, lng: 144.964451};
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map-edit'), {
         zoom: 16,
         center: initialCoords,
         clickableIcons: false,
