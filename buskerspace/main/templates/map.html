@@ -34,7 +34,6 @@ function initMap() {
     marker.setMap(map);
 
 	{% for event in events %}
-		alert("{{ event.event_lat }}, {{ event.event_lng }}");
 		marker = new google.maps.Marker({
 			position: {lat: {{ event.event_lat }}, lng: {{ event.event_lng }} },
 			title: "{{ event.event_title }}",

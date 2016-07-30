@@ -4,11 +4,15 @@ from django.db import models
 
 class User(models.Model):
     email = models.CharField(max_length=100)
-	
+    def __str__(self):
+        return "User: %s" % self.email
+    
 class Busker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     busker_desc = models.CharField(max_length=3000)
     genre = models.CharField(max_length=200)
+    def __str__(self):
+        return "Busker: %s" % self.busker_desc
 
 class Event(models.Model):
     event_datetime = models.DateTimeField()
@@ -17,6 +21,8 @@ class Event(models.Model):
     busker = models.ForeignKey(Busker, on_delete=models.CASCADE)
     event_lat = models.DecimalField(max_digits=8, decimal_places=5)
     event_lng = models.DecimalField(max_digits=8, decimal_places=5)
+    def __str__(self):
+        return self.event_title + " at " + str(self.event_datetime) + ": %s" % self.event_desc
 
 class Following(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
