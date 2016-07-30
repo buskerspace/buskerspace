@@ -3,6 +3,7 @@ from django.db import models
 
 class Busker(models.Model):
     email = models.CharField(default="johnsmith@hyperglobomega.net", max_length=100)
+    pw_hash = models.CharField(default='e68a95aadb0c73dfd968513174de4ddf', max_length=30)
     busker_desc = models.CharField(max_length=3000)
     busker_name = models.CharField(max_length=100)
     genre = models.CharField(max_length=200)
