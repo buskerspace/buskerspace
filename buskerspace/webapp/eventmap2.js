@@ -11,26 +11,19 @@ function initMap() {
         lat: -37.800089,
         lng: 144.964451,
         title: 'UNIHACK2016',
-        type: 'musical',
+        type: 'musical'
     };
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        zoom: 17,
         center: new google.maps.LatLng(event.lat, event.lng),
         clickableIcons: false,
-        draggable: false
+        draggable: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: false,
+        scrollwheel: false
     });
-
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            map.panTo(new google.maps.LatLng(
-                position.coords.latitude,
-                position.coords.longitude
-            ));
-        }, function(error) {
-            console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
-        });
-    }
 
     icons = {
         musical: {
@@ -97,7 +90,8 @@ function initMap() {
         map: map,
         position: {lat: event.lat, lng: event.lng},
         title: event.title,
-        icon: icon
+        icon: icon,
+        clickable: false
     });
 
 }
