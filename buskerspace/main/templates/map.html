@@ -145,7 +145,7 @@ function onLoad() {
 		buskerid: {{ e.busker.pk }},
 		buskername: '{{ e.busker.busker_name }}'
 	};
-	addEvent(map, event);
+	addEvent(event);
 	{% endfor %}
 }
 
