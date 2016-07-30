@@ -50,30 +50,6 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<script>
-
-var rangeInput = document.getElementById("rangeinput").value;
-var buttonInput = document.getElementById("btn");
-
-if (buttonInput.addEventListener) {
-    buttonInput.addEventListener("click", testtest, false);
-}
-else if (buttonInput.attachEvent) {
-    buttonInput.attachEvent('onclick', testtest);
-}
-
-function testtest(e) {
-    // read the value from the slider:
-    var value = document.getElementById("rangeinput").value;
-    // now compare:
-    if (value > 0 && value < 5) {
-        alert("First");
-    } else {
-        alert("Second");
-    }
-}
-</script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buskerspace: Home</title>
 
@@ -106,9 +82,6 @@ function testtest(e) {
     <span class="mdl-layout-title">Map Filters</></span>
 
     <div class="mdl-navigation">
-      <a class="mdl-navigation__link">Maximum Distance: <output id="rangevalue">0</output> km</a>
-      <!-- Default Slider -->
-    <input class="mdl-slider mdl-js-slider" type="range" id="rangeinput" min="0" max="100" value="0" tabindex="0" onchange="rangevalue.value=value">
 
     <a class="mdl-navigation__link">Genres</a>
 
