@@ -92,11 +92,19 @@
   </div>
   <div class="mdl-tabs__panel center" id="edit-panel">
      <div class="page-content center">
+	 
+      <!-- Simple Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="email">
+    <label class="mdl-textfield__label" for="sample1">Enter busker email</label>
+  </div>
+</form>
       <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="title">
-    <label class="mdl-textfield__label" for="sample1">What is your event called?</label>
+    <label class="mdl-textfield__label" for="sample1">Enter a new name...</label>
   </div>
 </form>
     <input id="location" class="controls" type="text" placeholder="Enter a location">
@@ -108,7 +116,7 @@
 
     <div id="map"></div> <!--- map -->
 <br>
-<a class="mdl-navigation__link">What is the date and time of your performance?</a>    
+<a class="mdl-navigation__link">Enter a new date and time...</a>    
 <br>
 <br>
 <input type="date" id="myDate" value="2016-08-1"> <!--W3 Schools for JS help -->
@@ -124,15 +132,6 @@
   </div>
 </form>
 
-      <!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="email">
-    <label class="mdl-textfield__label" for="sample1">What is you email?</label>
-  </div>
-</form>
-  
-
 <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
@@ -146,7 +145,7 @@
 
 <a ref="javascript:{}" onclick="submitEvent();">
 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
-  Create Event
+  Submit Event
 <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 </a>
 
