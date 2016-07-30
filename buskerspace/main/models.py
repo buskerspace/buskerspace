@@ -13,7 +13,7 @@ class Busker(models.Model):
     busker_name = models.CharField(max_length=100)
     genre = models.CharField(max_length=200)
     def __str__(self):
-        return "Busker: %s" % self.busker_desc
+        return "%s: %s" % (self.busker_name, self.busker_desc)
 
 class Event(models.Model):
     event_datetime = models.DateTimeField()
