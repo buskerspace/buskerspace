@@ -17,6 +17,7 @@ class Busker(models.Model):
 
 class Event(models.Model):
     event_datetime = models.DateTimeField()
+    event_duration = models.DecimalField(max_digits=2, decimal_places=1)
     event_title = models.CharField(max_length=200)
     event_desc = models.CharField(max_length=1000)
     busker = models.ForeignKey(Busker, on_delete=models.CASCADE)
