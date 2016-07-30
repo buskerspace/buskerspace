@@ -6,12 +6,12 @@ def search(request):
 	# Display results here.
 	return render(request, 'search.html')
 
-def account(request):
+def profile(request, user_id):
 	# Stub to display an account page
 	# if ACCOUNT PAGE IS LOGGED IN USER:
 	# 	return render(request, 'myprofile.html')
 	# else
-	return render(request, 'userprofile.html')
+	return render(request, 'userprofile.html', { 'user_id': user_id, })
 
 def map(request):
 	# Display nearby buskers
