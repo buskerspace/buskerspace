@@ -19,10 +19,6 @@ function initMap() {
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map)
 
-    map.addListener('bounds_changed', function() {
-        searchBox.setBounds(map.getBounds());
-    });
-
     marker = new google.maps.Marker({
         map: map,
         position: map.getCenter(),
@@ -92,13 +88,18 @@ function submitEvent() {
         value: marker.getPosition().lng
     },
     {
-        name: "date"
+        name: "date",
+        value:  document.getElementById("year").value + '-' +
+                document.getElementById("month").value + '-' +
+                document.getElementById("day").value
     },
     {
-        name: "time"
+        name: "time",
+        value: document.getElementById("time").value
     },
     {
-        name: "duration"
+        name: "duration",
+        value: document.getElementById("duration").value
     }
     ];
 
