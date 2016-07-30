@@ -17,7 +17,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: new google.maps.LatLng(event.lat, event.lng),
-        clickableIcons: false
+        clickableIcons: false,
         draggable: false
     });
 
@@ -100,4 +100,26 @@ function initMap() {
         icon: icon
     });
 
+}
+
+function revGeocode(lat, lng) {
+    geocoder.geocode(
+        {
+            'location': {
+                lat: lat,
+                lng: lng
+            }
+        },
+        function(results, status) {
+            if (status === 'OK') {
+                if (results[1]) {
+                    console.log(results[1].formatted_address);
+                } else {
+                    console.log('Reverse geocoding failed for (' +
+                        lat + ', ' + lng);
+                }
+            } else {
+                console.log('Geocoder failed with error: ' + status);
+            }
+        });
 }
