@@ -35,6 +35,8 @@ function initMap() {
         lat: -37.800089,
         lng: 144.964451,
         title: 'UNIHACK2016',
+        buskerid: 2016,
+        buskername: 'Busker Space',
         type: 'musical',
         desc: 'The big event that\'s on today. There are lots of people there.'
     };
@@ -81,17 +83,24 @@ function addEvent(event) {
 
     var windowDiv   = document.createElement("div");
     var windowTitle = document.createElement("p");
+    var windowName  = document.createElement("a");
     var windowDesc  = document.createElement("p");
 
     windowDiv.appendChild(windowTitle);
+    windowDiv.appendChild(windowName);
     windowDiv.appendChild(windowDesc);
 
     windowTitle.appendChild(
         document.createTextNode(event.title));
+    windowName.appendChild(
+        document.createTextNode(event.buskername));
     windowDesc.appendChild(
         document.createTextNode(event.desc));
 
+    windowName.setAttribute("href", "/profile/" + event.buskerid + "/");
+
     windowTitle.className = "eventtitle";
+    windowName.className  = "eventname";
     windowDesc.className  = "eventdesc";
 
     var infoWindow = new google.maps.InfoWindow({
