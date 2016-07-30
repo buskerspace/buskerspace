@@ -22,4 +22,3 @@ class Event(models.Model):
 class Following(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     busker = models.ForeignKey(Busker, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100)
