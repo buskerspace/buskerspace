@@ -5,4 +5,6 @@ app_name = 'main'
 urlpatterns = [
 	# path is /
 	url(r'^$', views.map, name='map'),
+	# path is /search/
+	url(r'^search/', views.search, name='search')
 ]
