@@ -7,7 +7,7 @@ var icons = undefined;
 
 /* Initialise both kinds of maps */
 function initMap() {
-    
+
     initMapEdit();
     initMapView();
 }
@@ -87,8 +87,21 @@ function initMapView() {
         mapTypeControl: false,
         streetViewControl: false,
         zoomControl: false,
-        scrollwheel: false
+        scrollwheel: false,
+        disableDoubleClickZoom: true,
+        keyboardShortcuts: false,
+        panControl: false,
+        rotateControl: false,
+        scaleControl: false,
+        signInControl: false,
+        cursor: 'pointer'
     });
+
+    google.maps.event.addListener(mapView, 'click', function(click) {
+        window.location.href = "/?lat=" + event.lat + "&lng=" + event.lng;
+    });
+
+    mapView.getDiv().style.cursor = "pointer";
 
     icons = {
         musical: {
