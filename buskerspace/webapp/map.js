@@ -19,19 +19,19 @@ function initMap() {
     icons = {
         musical: {
             url: imgurl + 'icon-musical.png',
-            size: new google.maps.Size(20, 32),
+            size: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(0, 32)
         },
         performance: {
             url: imgurl + 'icon-performance.png',
-            size: new google.maps.Size(20, 32),
+            size: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(0, 32)
         },
         other: {
             url: imgurl + 'icon-other.png',
-            size: new google.maps.Size(20, 32),
+            size: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(0, 32)
         },
@@ -127,7 +127,7 @@ function addEvent(event) {
         map: map,
         position: {lat: event.lat, lng: event.lng},
         title: event.title,
-        icon: ''
+        icon: icon
     });
 
     // Create InfoWindow
