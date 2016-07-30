@@ -46,8 +46,14 @@ def createEvent(request):
 		except (KeyError):
 			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
 		else:
+			event.save()
 			return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
+			
+def createBusker(request):
+	return render(request, 'newbusker.html')
 
 def results(request):
     buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))
+    if not buskers:
+        return render(request, 'search.html', { 'error_message': 'No matches found. :(' })
     return render(request, 'searchresults.html', { 'buskers': buskers })
