@@ -88,6 +88,7 @@ width: 50%;
 
 <!-- Simple Textfield -->
 <form id="form" class="center1" method="post" action="/searchresults/">
+{% csrf_token %}
   <div class="center1 mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="sample1" name="search">
     <label class="mdl-textfield__label" for="sample1">Enter the name of a busker...</label>
