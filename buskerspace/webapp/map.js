@@ -22,7 +22,6 @@ function initMap() {
                 position.coords.latitude,
                 position.coords.longitude
             ));
-            console.log("Lat: " + initialCoords.lat + ", Long: " + initialCoords.lng);
         }, function(error) {
             console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
         });
