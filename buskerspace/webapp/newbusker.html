@@ -3,6 +3,8 @@
 
 <head>
 
+<style>
+
     <style>
        #map {
         width: 100%;
@@ -31,13 +33,11 @@ text-align: center;
 
     </style>
 
+</style>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-<script type="text/javascript" src="eventmap.js"></script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
-</script>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -55,23 +55,22 @@ text-align: center;
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buskerspace: Home</title>
+    <title>Buskerspace: Profile</title>
 
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Create New Event</span>
+      <span class="mdl-layout-title">My Profile</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
 
-        <a class="mdl-navigation__link" href="/search/">Search</a>
-        <a class="mdl-navigation__link" href="/map/">Map</a>
+        <a class="mdl-navigation__link" href="search.html">Search</a>
+        <a class="mdl-navigation__link" href="map.html">Map</a>
         <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
         <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
       </nav>
@@ -80,62 +79,44 @@ text-align: center;
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="/search/">Search</a>
-      <a class="mdl-navigation__link" href="/map/">Map</a>
+      <a class="mdl-navigation__link" href="search.html">Search</a>
+      <a class="mdl-navigation__link" href="map.html">Map</a>
       <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
       <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
-      <br>
-    </nav> 
-    
+    </nav>
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
-     
-      <!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Title...</label>
+
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar">
+      <a href="#starks-panel" class="mdl-tabs__tab is-active">Details</a>
+      <a href="#lannisters-panel" class="mdl-tabs__tab">Edit</a>
+      <a href="#targaryens-panel" class="mdl-tabs__tab">Targaryens</a>
   </div>
-</form>
 
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Date...</label>
+  <div class="mdl-tabs__panel is-active" id="starks-panel">
+    <ul>
+
+    </ul>
   </div>
-</form>
-
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Description...</label>
+  <div class="mdl-tabs__panel" id="lannisters-panel">
+    <ul>
+      <li>Tywin</li>
+      <li>Cersei</li>
+      <li>Jamie</li>
+      <li>Tyrion</li>
+    </ul>
   </div>
-</form>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Location...</label>
+  <div class="mdl-tabs__panel" id="targaryens-panel">
+    <ul>
+      <li>Viserys</li>
+      <li>Daenerys</li>
+    </ul>
   </div>
-</form>
-
-    <div id="map"></div> <!--- map -->
-<br>
-<div class="center">
-<!-- Raised button with ripple -->
-<a href="javascript:{}" onclick="document.getElementById('form').submitevent();">
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
-  Create Event
-<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-</a>
+</div>
 
     </div>
-
   </main>
 </div>
 
