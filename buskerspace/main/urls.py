@@ -9,6 +9,8 @@ urlpatterns = [
 	url(r'^search/', views.search, name='search'),
 	# path is /view/busker/USER_ID/
 	url(r'^view/busker/(?P<user_id>[0-9]+)/$', views.viewBusker, name='viewBusker'),
+	# path is /view/event/EVENT_ID/
+	url(r'^view/event/(?P<event_id>[0-9]+)/$', views.viewEvent, name='viewEvent'),
 	# path is /new/event/
 	url(r'^new/event/', views.createEvent, name="createEvent"),
 	# path is /new/busker/
