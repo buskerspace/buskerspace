@@ -1,9 +1,5 @@
 var map = undefined;
-var events = undefined;
-var filters = undefined;
-
-var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/';
-var icons = undefined;
+var marker = undefined;
 
 /* Initialise the map */
 function initMap() {
@@ -17,10 +13,33 @@ function initMap() {
         draggableCursor: 'crosshair'
     });
 
-    var marker = new google.maps.Marker({
+    var input = document.getElementById('location');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map)
+
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    marker = new google.maps.Marker({
         map: map,
         position: map.getCenter(),
         draggable: true
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (!place.geometry)
+            return;
+        if (place.geometry.viewport)
+            map.fitBounds(place.geometry.viewport);
+        else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+        marker.setPosition(place.geometry.location);
     });
 
     if ("geolocation" in navigator) {
@@ -35,35 +54,62 @@ function initMap() {
         });
     }
 
-    icons = {
-        musical: {
-            url: imgurl + 'icon-musical.png',
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
-        },
-        performance: {
-            url: imgurl + 'icon-performance.png',
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
-        },
-        other: {
-            url: imgurl + 'icon-other.png',
-            size: new google.maps.Size(32, 32),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
-        },
-        undef: ''
-    };
-
-
-
     google.maps.event.addListener(map, 'click', function(click) {
+        document.getElementById("location")
+            .value = click.latLng.lat().toPrecision(11) + ", " + click.latLng.lng().toPrecision(11);
         marker.setPosition(click.latLng);
         map.panTo(click.latLng);
     });
 }
 
 function submitEvent() {
+
+    var path = "/";
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", path);
+
+    var fields = [
+    {
+        name: "title",
+        value: document.getElementById("title").value
+    },
+    {
+        name: "desc",
+        value: document.getElementById("desc").value
+    },
+    {
+        name: "buskeremail",
+        value: document.getElementById("buskeremail").value
+    },
+    {
+        name: "lat",
+        value: marker.getPosition().lat
+    },
+    {
+        name: "lng",
+        value: marker.getPosition().lng
+    },
+    {
+        name: "date"
+    },
+    {
+        name: "time"
+    },
+    {
+        name: "duration"
+    }
+    ];
+
+    for (var i = 0, field; field = fields[i]; i++) {
+        var element = document.createElement("input");
+        element.setAttribute("type",  "hidden");
+        element.setAttribute("name",  field.name);
+        element.setAttribute("value", field.value);
+        form.appendChild(element);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
