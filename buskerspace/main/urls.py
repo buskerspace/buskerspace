@@ -3,6 +3,6 @@ from . import views
 
 app_name = 'main'
 urlpatterns = [
-	# e.g.: /main/
-	url(r'^$', views.index, name='index'),
+	# path is /
+	url(r'^$', views.map, name='map'),
 ]
