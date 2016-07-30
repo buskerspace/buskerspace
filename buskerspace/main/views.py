@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.utils import timezone
 from django.template.defaulttags import register
-from .models import Event, Busker, User
+from .models import Event, Busker
 
 def search(request):
 	return render(request, "search.html")
