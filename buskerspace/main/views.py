@@ -7,7 +7,12 @@ from .models import Event, Busker
 
 def search(request):
 	# Display results here.
-	return render(request, 'search.html')
+	try:
+		matches = Busker.objects.filter(busker_name__icontains=request.POST['query'])
+	except (KeyError):
+		return render(request, "search.html")
+	else:
+		return render(request, 'results.html', { "matches": matches })
 
 def profile(request, user_id):
 	# Stub to display an account page
