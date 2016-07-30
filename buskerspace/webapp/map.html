@@ -6,8 +6,9 @@
     <style>
        #map {
         width: 100%;
-        height: 600px;
+        height: 700px;
       }
+
     </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,6 +17,23 @@
 <script type="text/javascript" src="map.js"></script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
+</script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1348158388546594',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+ 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 
 
@@ -46,12 +64,41 @@
       <a class="mdl-navigation__link" href="search.html">Search</a>
       <a class="mdl-navigation__link" href="map.html">Map</a>
       <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
-    </nav>
+      <br>
+    </nav>  
+
+    <span class="mdl-layout-title">Map Filters</></span>
+
+    <div class="mdl-navigation">
+      <a class="mdl-navigation__link">Maximum Distance: XX km</a>
+      <!-- Default Slider -->
+    <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0">
+
+    <a class="mdl-navigation__link">Genres</a>
+
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Music</span>
+</label>
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Performer</span>
+</label>
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Other</span>
+</label>
+    </div>  
+
+
+    
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
       
     <div id="map"></div> <!--- map -->
+
+
 
     </div>
 
