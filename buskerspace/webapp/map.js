@@ -2,7 +2,7 @@ var map = undefined;
 var events = undefined;
 var filters = undefined;
 
-/* Initialise JavaScript */
+/* Initialise the map */
 function initMap() {
 
     var initialCoords = {lat: -37.800089, lng: 144.964451};
@@ -15,6 +15,7 @@ function initMap() {
     onLoad();
 }
 
+/* Initialise JavaScript */
 function onLoad() {
 
     events = {
@@ -94,12 +95,15 @@ function addEvent(event) {
     windowDiv.appendChild(windowName);
     windowDiv.appendChild(windowDesc);
 
-    windowTitle.appendChild(
-        document.createTextNode(event.title));
-    windowName.appendChild(
-        document.createTextNode(event.buskername));
-    windowDesc.appendChild(
-        document.createTextNode(event.desc));
+    var element = document.createElement("span");
+    element.innerHTML = event.title;
+    windowTitle.appendChild(element);
+    element = document.createElement("span");
+    element.innerHTML = event.buskername;
+    windowName.appendChild(element);
+    element = document.createElement("span");
+    element.innerHTML = event.desc;
+    windowDesc.appendChild(element);
 
     windowName.setAttribute("href", "/profile/" + event.buskerid + "/");
 
@@ -153,29 +157,30 @@ function filterEvents() {
     var toggle;
 
     // Musical
-    toggle = document.getElementById("checkbox-1").value;
+    toggle = document.getElementById("checkbox-1").checked;
+
     if (toggle != filters.musicalEvents) {
         setVisibility(events.musicalEvents, toggle);
         filters.musicalEvents = toggle;
     }
 
     // Performance
-    toggle = document.getElementById("checkbox-2").value;
+    toggle = document.getElementById("checkbox-2").checked;
     if (toggle != filters.performanceEvents) {
         setVisibility(events.performanceEvents, toggle);
-        filters.musicalEvents = toggle;
+        filters.performanceEvents = toggle;
     }
 
     // Other
-    toggle = document.getElementById("checkbox-3").value;
+    toggle = document.getElementById("checkbox-3").checked;
     if (toggle != filters.otherEvents) {
         setVisibility(events.otherEvents, toggle);
-        filters.musicalEvents = toggle;
+        filters.otherEvents = toggle;
     }
 
     function setVisibility(eventList, toggle) {
 
-        for (var i = 0, event; event = eventList[i]; i++) {
+        for (var i = 1, event; event = eventList[i]; i++) {
             if (toggle)
                 event.marker.setMap(map);
             else
