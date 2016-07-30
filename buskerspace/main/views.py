@@ -24,11 +24,17 @@ def createEvent(request):
 	if 'buskeremail' not in request.POST:
 		return render(request, 'newevent.html')
 	else:
-		buskeremail
-		titledesc
-		buskeremail
-		lat
-		lng
+		#buskeremail
+		#titledesc
+		#buskeremail
+		#lat
+		#lng
+		#date
+		#time
+		busker = Busker.objects.get(email=request.post.get['buskeremail'])
+		if not busker:
+			return render(request, 'newevent.html', { 'error_message': 'Busker does not exist!' })
+		
 
 def results(request):
     buskers = Busker.objects.filter(busker_name__icontains=request.POST.get('search'))
