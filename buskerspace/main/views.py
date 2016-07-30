@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import loader
 from django.utils import timezone
 from django.template.defaulttags import register
@@ -8,12 +8,15 @@ from .models import Event, Busker
 def search(request):
 	return render(request, "search.html")
 	
-def profile(request, user_id):
+def viewBusker(request, user_id):
 	# Stub to display an account page
 	# if ACCOUNT PAGE IS LOGGED IN USER:
 	# 	return render(request, 'myprofile.html')
 	# else
-	return render(request, 'userprofile.html', { 'user_id': user_id, })
+	busker = Busker.objects.get(pk=user_id)
+	if not busker:
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.' })
+	return render(request, 'buskerviewedit.html', { 'busker': busker, })
 
 def map(request):
 	# Display nearby buskers
