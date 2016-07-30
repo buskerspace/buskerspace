@@ -84,13 +84,17 @@ width: 30%;
     </nav>
   </div>
   <main class="mdl-layout__content">
-   <img class="centerimg smallimg" src="hat.svg">
 
-<!-- Simple Textfield -->
+<!-- Expandable Textfield -->
 <form id="form" class="center1" method="post" action="/searchresults/">
-  <div class="center1 mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1" name="search">
-    <label class="mdl-textfield__label" for="sample1">Enter the name of a busker...</label>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+    <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+      <i class="material-icons">search</i>
+    </label>
+    <div class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input" type="text" id="sample6">
+      <label class="mdl-textfield__label" for="sample-expandable">Enter the name of a busker...</label>
+    </div>
   </div>
 </form>
 

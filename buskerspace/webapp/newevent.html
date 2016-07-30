@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 
+height: 101%;
+
 <head>
 
     <style>
@@ -94,7 +96,7 @@ text-align: center;
       <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
+    <input class="mdl-textfield__input" type="text" id="title">
     <label class="mdl-textfield__label" for="sample1">Title...</label>
   </div>
 </form>
@@ -102,29 +104,57 @@ text-align: center;
 <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Date...</label>
-  </div>
-</form>
-
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Description...</label>
-  </div>
-</form>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
+    <input class="mdl-textfield__input" type="text" id="location">
     <label class="mdl-textfield__label" for="sample1">Location...</label>
   </div>
 </form>
 
     <div id="map"></div> <!--- map -->
+
+<!-- Numeric Textfield with Floating Label -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="day">
+    <label class="mdl-textfield__label" for="sample4">Day</label>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+<!-- Numeric Textfield with Floating Label -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="month">
+    <label class="mdl-textfield__label" for="sample4">Month (1-12)</label>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+<!-- Numeric Textfield with Floating Label -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="year">
+    <label class="mdl-textfield__label" for="sample4">Year</label>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+<!-- Numeric Textfield with Floating Label -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration">
+    <label class="mdl-textfield__label" for="sample4">Duration (Hours)</label>
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+</form>
+
+<!-- Floating Multiline Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows= "3" id="desc" ></textarea>
+    <label class="mdl-textfield__label" for="sample5">Description...</label>
+  </div>
+</form>
+
 <br>
 <div class="center">
 <!-- Raised button with ripple -->
