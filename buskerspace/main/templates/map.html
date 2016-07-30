@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,8 +5,22 @@
     <style>
        #map {
         width: 100%;
-        height: 600px;
+        height: 700px;
       }
+
+     .eventtitle {
+
+      font-size: 20px;
+      color: red;
+
+     }
+
+     .eventdesc {
+
+      font-size: 10px;
+
+     } 
+
     </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -28,19 +41,19 @@ function initMap() {
         lng: 144.964451,
         title: 'UNIHACK2016',
         type: 'musical',
-		desc: 'example'
+        desc: 'The big event that\'s on today. There are lots of people there.'
     };
 
     addEvent(map, event);
-	{% for event in events %}
-		var event = {
-			lat: {{ event.event_lat }},
-			lng: {{ event.event_lng }},
-			title: "{{ event.event_title }}",
-			type: 'musical',
-			desc: "{{ event.event_desc }}"
-		}
-		addEvent(map, event);
+	{% for e in events %}
+	event = {
+		lat: {{ e.event_lat }},
+		lng: {{ e.event_lng }},
+		title: '{{ e.event_title }}',
+		type: 'musical',
+		desc: '{{ e.event_desc }}'
+	};
+	addEvent(map, event);
 	{% endfor %}
 
     return map;
@@ -67,10 +80,56 @@ function addEvent(map, event) {
         title: event.title,
         icon: icon
     });
+
+
+    var windowDiv   = document.createElement("div");
+    var windowTitle = document.createElement("p");
+    var windowDesc  = document.createElement("p");
+
+    windowDiv.appendChild(windowTitle);
+    windowDiv.appendChild(windowDesc);
+
+    windowTitle.appendChild(
+        document.createTextNode(event.title));
+    windowDesc.appendChild(
+        document.createTextNode(event.desc));
+
+    windowTitle.className = "eventtitle";
+    windowDesc.className  = "eventdesc";
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: windowDiv
+    });
+
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    });
+
+    google.maps.event.addListener(map, "click", function() {
+        infoWindow.close();
+    });
+
 }
 </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
+</script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1348158388546594',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+ 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 
 
@@ -101,7 +160,34 @@ function addEvent(map, event) {
       <a class="mdl-navigation__link" href="search.html">Search</a>
       <a class="mdl-navigation__link" href="map.html">Map</a>
       <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
-    </nav>
+      <br>
+    </nav>  
+
+    <span class="mdl-layout-title">Map Filters</></span>
+
+    <div class="mdl-navigation">
+      <a class="mdl-navigation__link">Maximum Distance: XX km</a>
+      <!-- Default Slider -->
+    <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0">
+
+    <a class="mdl-navigation__link">Genres</a>
+
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Music</span>
+</label>
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Performer</span>
+</label>
+<label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <span class="mdl-checkbox__label">Other</span>
+</label>
+    </div>  
+
+
+    
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
