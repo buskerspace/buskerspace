@@ -127,8 +127,7 @@ function addEvent(event) {
         map: map,
         position: {lat: event.lat, lng: event.lng},
         title: event.title,
-        icon: {url: icon.url},
-        shape: shape
+        icon: ''
     });
 
     // Create InfoWindow
