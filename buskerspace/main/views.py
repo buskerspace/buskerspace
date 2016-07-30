@@ -3,7 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import loader
 from django.utils import timezone
 from django.template.defaulttags import register
+from django.contrib.auth.hashers import make_password
 from .models import Event, Busker
+import datetime
+import time
 
 def search(request):
 	return render(request, "search.html")
@@ -14,9 +17,10 @@ def viewBusker(request, user_id):
 	# 	return render(request, 'myprofile.html')
 	# else
 	busker = Busker.objects.get(pk=user_id)
+	events = Event.objects.filter(busker=user_id)
 	if not busker:
-		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.' })
-	return render(request, 'buskerviewedit.html', { 'busker': busker, })
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.', })
+	return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, })
 
 def map(request):
 	# Display nearby buskers
@@ -35,17 +39,22 @@ def createEvent(request):
 		#lng
 		#date
 		#time
-		busker = Busker.objects.get(email=request.post.get['buskeremail'])
+		busker = Busker.objects.filter(email=request.POST.get('buskeremail'))
 		if not busker:
 			return render(request, 'newevent.html', { 'error_message': 'Busker does not exist!' })
 		try:
-			event = Event(event_datetime=request.post.get['date'],
-						  event_duration=request.post.get['time'],
-						  event_title=request.post.get['title'],
-						  event_desc=request.post.get['desc'],
-						  event_lat=request.post.get['lat'],
-						  event_lng=request.post.get['lng'],
-						  busker=busker.pkl);
+			password = make_password(password=request.POST.get('password'), salt=None, hasher='unsalted_md5')
+			b = Busker.objects.filter(pw_hash=password)
+			if not b or not (b[0].email == busker[0].email):
+				return render(request, 'newevent.html', { 'error_message': 'Invalid password or email' })
+				
+			event = Event(event_datetime=(request.POST.get('date') + " " + request.POST.get('time')),
+						  event_duration=request.POST.get('duration'),
+						  event_title=request.POST.get('title'),
+						  event_desc=request.POST.get('desc'),
+						  event_lat=request.POST.get('lat'),
+						  event_lng=request.POST.get('lng'),
+						  busker=busker[0]);
 		except (KeyError):
 			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
 		else:
