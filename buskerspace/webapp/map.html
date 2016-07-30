@@ -6,7 +6,8 @@
     <style>
        #map {
         width: 100%;
-        height: 700px;
+        height: 90vh;
+        position: relative;
       }
 
      .eventtitle {
@@ -49,6 +50,29 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
+<script>
+
+var rangeInput = document.getElementById("rangeinput").value;
+var buttonInput = document.getElementById("btn");
+
+if (buttonInput.addEventListener) {
+    buttonInput.addEventListener("click", testtest, false);
+}
+else if (buttonInput.attachEvent) {
+    buttonInput.attachEvent('onclick', testtest);
+}
+
+function testtest(e) {
+    // read the value from the slider:
+    var value = document.getElementById("rangeinput").value;
+    // now compare:
+    if (value > 0 && value < 5) {
+        alert("First");
+    } else {
+        alert("Second");
+    }
+}
+</script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,9 +107,9 @@
     <span class="mdl-layout-title">Map Filters</></span>
 
     <div class="mdl-navigation">
-      <a class="mdl-navigation__link">Maximum Distance: XX km</a>
+      <a class="mdl-navigation__link">Maximum Distance: <output id="rangevalue">0</output> km</a>
       <!-- Default Slider -->
-    <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0">
+    <input class="mdl-slider mdl-js-slider" type="range" id="rangeinput" min="0" max="100" value="0" tabindex="0" onchange="rangevalue.value=value">
 
     <a class="mdl-navigation__link">Genres</a>
 
@@ -94,16 +118,18 @@
   <span class="mdl-checkbox__label">Music</span>
 </label>
 <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
   <span class="mdl-checkbox__label">Performer</span>
 </label>
 <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked>
   <span class="mdl-checkbox__label">Other</span>
 </label>
+<!-- Raised button with ripple -->
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+  Apply
+</button>
     </div>  
-
-
     
   </div>
   <main class="mdl-layout__content">
@@ -118,3 +144,4 @@
 
 </body>
 </html>
+
