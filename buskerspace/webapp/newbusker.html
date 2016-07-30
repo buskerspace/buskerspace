@@ -1,123 +1,112 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-<style>
-.center {
-
-text-align: center;
-</style>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
-<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1348158388546594',
-      xfbml      : true,
-      version    : 'v2.7'
-    });
-  };
- 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buskerspace: New Busker</title>
-
-<!-- Always shows a header, even in smaller screens. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">New Busker</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-
-        <a class="mdl-navigation__link" href="search.html">Search</a>
-        <a class="mdl-navigation__link" href="map.html">Map</a>
-        <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-        <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
-      </nav>
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Menu</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="search.html">Search</a>
-      <a class="mdl-navigation__link" href="map.html">Map</a>
-      <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-      <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-    <div class="page-content center"><!-- Your content goes here -->
-          <!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="name">
-    <label class="mdl-textfield__label" for="sample1">Name...</label>
-  </div>
-</form>
-
-<select>Genre
-  <option value="Musician">Musician</option>
-  <option value="Performer">Performer</option>
-  <option value="Other">Other</option>
-</select>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="desc">
-    <label class="mdl-textfield__label" for="sample1">Description...</label>
-  </div>
-</form>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="email">
-    <label class="mdl-textfield__label" for="sample1">Email...</label>
-  </div>
-</form>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="password" id="password">
-    <label class="mdl-textfield__label" for="sample1">Password...</label>
-  </div>
-</form>
-
-<!-- Simple Textfield -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="password" id="password1">
-    <label class="mdl-textfield__label" for="sample1">Confirm Password...</label>
-  </div>
-</form>
-
-<div class="center">
-<!-- Raised button with ripple -->
-<a href="javascript:{}" onclick="">
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
-  Submit
-<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-</a>
-</div>
-</div>
-
-  </main>
-</div>
-
-</body>
+   <head>
+      <style>
+         .center {
+         text-align: center;
+      </style>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
+      <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+      <script>
+         window.fbAsyncInit = function() {
+           FB.init({
+             appId      : '1348158388546594',
+             xfbml      : true,
+             version    : 'v2.7'
+           });
+         };
+         
+         (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+      </script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Buskerspace: New Busker</title>
+      <!-- Always shows a header, even in smaller screens. -->
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+         <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+               <!-- Title -->
+               <span class="mdl-layout-title">New Busker</span>
+               <!-- Add spacer, to align navigation to the right -->
+               <div class="mdl-layout-spacer"></div>
+               <!-- Navigation. We hide it in small screens. -->
+               <nav class="mdl-navigation mdl-layout--large-screen-only">
+                  <a class="mdl-navigation__link" href="search.html">Search</a>
+                  <a class="mdl-navigation__link" href="map.html">Map</a>
+                  <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
+                  <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+               </nav>
+            </div>
+         </header>
+         <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+               <a class="mdl-navigation__link" href="search.html">Search</a>
+               <a class="mdl-navigation__link" href="map.html">Map</a>
+               <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
+               <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+            </nav>
+         </div>
+         <main class="mdl-layout__content">
+            <div class="page-content center">
+               <!-- Your content goes here -->
+               <!-- Simple Textfield -->
+               <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                     <input class="mdl-textfield__input" type="text" id="name">
+                     <label class="mdl-textfield__label" for="sample1">Name...</label>
+                  </div>
+               </form>
+               <select>
+                  Genre
+                  <option value="Musician">Musician</option>
+                  <option value="Performer">Performer</option>
+                  <option value="Other">Other</option>
+               </select>
+               <!-- Simple Textfield -->
+               <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                     <input class="mdl-textfield__input" type="text" id="desc">
+                     <label class="mdl-textfield__label" for="sample1">Description...</label>
+                  </div>
+               </form>
+               <!-- Simple Textfield -->
+               <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                     <input class="mdl-textfield__input" type="text" id="email">
+                     <label class="mdl-textfield__label" for="sample1">Email...</label>
+                  </div>
+               </form>
+               <!-- Simple Textfield -->
+               <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                     <input class="mdl-textfield__input" type="password" id="password">
+                     <label class="mdl-textfield__label" for="sample1">Password...</label>
+                  </div>
+               </form>
+               <!-- Simple Textfield -->
+               <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                     <input class="mdl-textfield__input" type="password" id="password1">
+                     <label class="mdl-textfield__label" for="sample1">Confirm Password...</label>
+                  </div>
+               </form>
+               <div class="center">
+                  <!-- Raised button with ripple -->
+                  <a href="javascript:{}" onclick="">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
+                  Submit
+                  <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+                  </a>
+               </div>
+            </div>
+         </main>
+      </div>
+      </body>
 </html>
