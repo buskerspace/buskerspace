@@ -8,7 +8,14 @@
 .center {
 
 text-align: center;
-vertical-align: center;
+
+}
+
+.centerimg {
+
+display: block;
+    margin-left: auto;
+    margin-right: auto
 
 }
 
@@ -17,7 +24,23 @@ vertical-align: center;
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1348158388546594',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+ 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buskerspace: Search</title>
 
@@ -48,6 +71,8 @@ vertical-align: center;
   </div>
   <main class="mdl-layout__content">
     <div class="page-content"><!-- Your content goes here --></div>
+
+<img class="centerimg" src="search-256.png">
 
     <!-- Simple Textfield -->
 <form action="#" class="center">
