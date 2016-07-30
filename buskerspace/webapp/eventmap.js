@@ -60,7 +60,7 @@ function initMap() {
 
 function submitEvent() {
 
-    var path = "/";
+    var path = "/new/event/";
 
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -77,25 +77,23 @@ function submitEvent() {
     },
     {
         name: "buskeremail",
-        value: document.getElementById("buskeremail").value
+        value: document.getElementById("email").value
     },
     {
         name: "lat",
-        value: marker.getPosition().lat
+        value: marker.getPosition().lat()
     },
     {
         name: "lng",
-        value: marker.getPosition().lng
+        value: marker.getPosition().lng()
     },
     {
         name: "date",
-        value:  document.getElementById("year").value + '-' +
-                document.getElementById("month").value + '-' +
-                document.getElementById("day").value
+        value: document.getElementById("myDate").value
     },
     {
         name: "time",
-        value: document.getElementById("time").value
+        value: document.getElementById("myTime").value
     },
     {
         name: "duration",
