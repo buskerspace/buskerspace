@@ -15,7 +15,21 @@ text-align: center;
 
 display: block;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+
+}
+
+.smallimg {
+
+height: 50%;
+width: 50%;
+
+}
+
+.center1 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
@@ -70,19 +84,45 @@ display: block;
     </nav>
   </div>
   <main class="mdl-layout__content">
-    <div class="page-content"><!-- Your content goes here --></div>
+   <img class="centerimg smallimg" src="hat.svg">
 
-<img class="centerimg" src="search-256.png">
-
-    <!-- Simple Textfield -->
-<form action="#" class="center">
-  <div class="mdl-textfield mdl-js-textfield">
+<!-- Simple Textfield -->
+<form id="form" class="center1" method="post" action="/searchresults/">
+  <div class="center1 mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Enter a busker's name or id...</label>
+    <label class="mdl-textfield__label" for="sample1">Enter the name of a busker...</label>
   </div>
 </form>
 
-  </main>
+<div class="center1">
+<span class ="center1">
+<label for="checkbox-1">
+  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked="">
+  <span class="mdl-checkbox__label">Musicians</span>
+</label>
+
+<label for="checkbox-2">
+  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked="">
+  <span class="mdl-checkbox__label">Performer</span>
+</label>
+
+<label for="checkbox-3">
+  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked="">
+  <span class="mdl-checkbox__label">Other</span>
+</label>
+<span class ="center1">
+</div> 
+
+<div class="center">
+<!-- Raised button with ripple -->
+<a href="javascript:{}" onclick="document.getElementById('form').submit();">
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
+  Search
+<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+</a>
+</div>
+</div>
+</main>
 </div>
 
 </body>

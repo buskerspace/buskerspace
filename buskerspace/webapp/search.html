@@ -87,35 +87,17 @@ width: 50%;
    <img class="centerimg smallimg" src="hat.svg">
 
 <!-- Simple Textfield -->
-<form class="center1" action="#">
+<form id="form" class="center1" method="post" action="/searchresults/">
   <div class="center1 mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
+    <input class="mdl-textfield__input" type="text" id="sample1" name="search">
     <label class="mdl-textfield__label" for="sample1">Enter the name of a busker...</label>
   </div>
 </form>
 
-<div class="center1">
-<span class ="center1">
-<label for="checkbox-1">
-  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked="">
-  <span class="mdl-checkbox__label">Musicians</span>
-</label>
-
-<label for="checkbox-2">
-  <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked="">
-  <span class="mdl-checkbox__label">Performer</span>
-</label>
-
-<label for="checkbox-3">
-  <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked="">
-  <span class="mdl-checkbox__label">Other</span>
-</label>
-<span class ="center1">
-</div> 
-
 <div class="center">
 <!-- Raised button with ripple -->
-<a href="searchresults.html"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
+<a href="javascript:{}" onclick="document.getElementById('form').submit();">
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
   Search
 <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 </a>

@@ -36,3 +36,5 @@ def login(request):
 		user = user[0]
 	request.session['id'] = user.pk;
 	return HttpResponseRedirect('/')
+
+def results(request):

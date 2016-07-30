@@ -83,7 +83,7 @@ function onLoad() {
 
     addEvent(event);
 	
-		{% for e in events %}
+	{% for e in events %}
 	event = {
 		lat: {{ e.event_lat }},
 		lng: {{ e.event_lng }},
@@ -239,6 +239,7 @@ function filterEvents() {
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="143584194785-04a6vco4k8jt941j70gq667f899jnin1.apps.googleusercontent.com">
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
 </script>
 <script>
