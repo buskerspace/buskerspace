@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from django.utils import timezone
+
+from .models import Event
 
 def search(request):
 	# Display results here.
@@ -15,4 +18,5 @@ def profile(request, user_id):
 
 def map(request):
 	# Display nearby buskers
+	events = Event.objects.filter(event_datetime__lte=timezone.now())
 	return render(request, 'map.html')
