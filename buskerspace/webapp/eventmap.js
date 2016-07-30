@@ -154,6 +154,10 @@ function initMapView() {
         clickable: false
     });
 
+
+    /*revGeocode(event.lat, event.lng, function(location) {
+        console.log(location);
+    }, 0);*/
 }
 
 function submitEvent() {
@@ -211,7 +215,8 @@ function submitEvent() {
     form.submit();
 }
 
-function revGeocode(lat, lng) {
+function revGeocode(lat, lng, callback, precision=1) {
+    var geocoder = new google.maps.Geocoder;
     geocoder.geocode(
         {
             'location': {
@@ -221,8 +226,9 @@ function revGeocode(lat, lng) {
         },
         function(results, status) {
             if (status === 'OK') {
-                if (results[1]) {
-                    console.log(results[1].formatted_address);
+                if (results[precision]) {
+                    callback(results[precision].formatted_address);
+                    return;
                 } else {
                     console.log('Reverse geocoding failed for (' +
                         lat + ', ' + lng);
@@ -230,5 +236,7 @@ function revGeocode(lat, lng) {
             } else {
                 console.log('Geocoder failed with error: ' + status);
             }
+            callback(lat + ", " + lng);
+            return;
         });
 }
