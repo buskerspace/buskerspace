@@ -2,6 +2,10 @@ var map = undefined;
 var events = undefined;
 var filters = undefined;
 
+var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/';
+var icons = undefined;
+var shapes = undefined;
+
 /* Initialise the map */
 function initMap() {
 
@@ -11,6 +15,44 @@ function initMap() {
         zoom: 16,
         center: initialCoords
     });
+
+    icons = {
+        musical: {
+            url: imgurl + 'icon-musical.png',
+            size: new google.maps.Size(20, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        performance: {
+            url: imgurl + 'icon-performance.png',
+            size: new google.maps.Size(20, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        other: {
+            url: imgurl + 'icon-other.png',
+            size: new google.maps.Size(20, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        undef: ''
+    };
+
+    shapes = {
+        musical: {
+            coords: [1,1,  1,20,  18,20,  18,1],
+            type: 'poly'
+        },
+        performance: {
+            coords: [1,1,  1,20,  18,20,  18,1],
+            type: 'poly'
+        },
+        other: {
+            coords: [1,1,  1,20,  18,20,  18,1],
+            type: 'poly'
+        },
+        undef: ''
+    };
 
     onLoad();
 }
@@ -54,26 +96,30 @@ function addEvent(event) {
 
     // Parse event
 
-    var images = {
-        undef:       'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png',
-        musical:     'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png',
-        performance: 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png',
-        other:       'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'
-    };
-
-    var icon = images.undef;
+    var icon = '';
+    var shape = '';
 
     switch (event.type) {
         case 'musical':
-            icon = images.musical;
+            icon = icons.musical;
+            shape = shapes.musical;
             break;
         case 'performance':
-            icon = images.performance;
+            icon = icons.performance;
+            shape = shapes.performance;
             break;
         case 'other':
-            icon = images.other;
+            icon = icons.other;
+            shape = shapes.other;
+            break;
+        default:
+            icon = icons.undef;
+            shape = shapes.undef;
             break;
     }
+
+    console.log(icon);
+    console.log(shape);
 
     // Add marker
 
@@ -81,7 +127,8 @@ function addEvent(event) {
         map: map,
         position: {lat: event.lat, lng: event.lng},
         title: event.title,
-        icon: icon
+        icon: {url: icon.url},
+        shape: shape
     });
 
     // Create InfoWindow
