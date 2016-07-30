@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.utils import timezone
-
-from .models import Event
+from django.template.defaulttags import register
+from .models import Event, Busker
 
 def search(request):
 	# Display results here.
