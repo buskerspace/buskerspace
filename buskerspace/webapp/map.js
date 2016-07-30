@@ -3,8 +3,8 @@ function initMap() {
     var mapDiv = document.getElementById('map');
 
     var map = new google.maps.Map(mapDiv, {
-        center: {lat: -33.91722, lng: 151.23064},
-        zoom: 8,
+        center: {lat: -37.8136 lng: 144.9631},
+        zoom: 16,
         styles: [
         {
             featureType: 'poi',
@@ -35,7 +35,7 @@ function initMap() {
 
     var features = [
         {
-            position: new google.maps.LatLng(-33.91721, 151.22630),
+            position: new google.maps.LatLng(-37.8136, 144.9631),
             type: 'info'
         }
     ];
