@@ -112,7 +112,7 @@ text-align: center;
     </nav>
   </div>
   <main class="mdl-layout__content">
-    <div class="page-content">
+    <div class="page-content center">
       <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
@@ -122,39 +122,18 @@ text-align: center;
 </form>
     <input id="location" class="controls" type="text" placeholder="Enter a location">
     <div id="map"></div> <!--- map -->
+<br>
+<a class="mdl-navigation__link">What is the date and time of your performance?</a>    
+<br>
+<input type="date" id="myDate" value="2016-08-1">
 
-<!-- Numeric Textfield with Floating Label -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="day">
-    <label class="mdl-textfield__label" for="sample4">Day</label>
-    <span class="mdl-textfield__error">Input is not a number!</span>
-  </div>
-</form>
-
-<!-- Numeric Textfield with Floating Label -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="month">
-    <label class="mdl-textfield__label" for="sample4">Month (1-12)</label>
-    <span class="mdl-textfield__error">Input is not a number!</span>
-  </div>
-</form>
-
-<!-- Numeric Textfield with Floating Label -->
-<form action="#">
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="year">
-    <label class="mdl-textfield__label" for="sample4">Year</label>
-    <span class="mdl-textfield__error">Input is not a number!</span>
-  </div>
-</form>
+<input type="time" id="myTime" value="12:00:00">
 
 <!-- Numeric Textfield with Floating Label -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration">
-    <label class="mdl-textfield__label" for="sample4">Duration (Hours)</label>
+    <label class="mdl-textfield__label" for="sample4">How many hours is your event?</label>
     <span class="mdl-textfield__error">Input is not a number!</span>
   </div>
 </form>
@@ -163,7 +142,7 @@ text-align: center;
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="title">
-    <label class="mdl-textfield__label" for="sample1">Email</label>
+    <label class="mdl-textfield__label" for="sample1">What is you email?</label>
   </div>
 </form>
   
@@ -172,7 +151,7 @@ text-align: center;
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="desc">
-    <label class="mdl-textfield__label" for="sample1">Description</label>
+    <label class="mdl-textfield__label" for="sample1">Let people know what is great about your event</label>
   </div>
 </form>
 
@@ -188,7 +167,7 @@ text-align: center;
     </div>
 
 <br>
-
+</div>
   </main>
 </div>
 
