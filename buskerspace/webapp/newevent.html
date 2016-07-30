@@ -89,7 +89,7 @@ text-align: center;
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Create a Busker</span>
+      <span class="mdl-layout-title">New Event</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
@@ -159,19 +159,28 @@ text-align: center;
   </div>
 </form>
 
-<!-- Floating Multiline Textfield -->
+      <!-- Simple Textfield -->
 <form action="#">
   <div class="mdl-textfield mdl-js-textfield">
-    <textarea class="mdl-textfield__input" type="text" rows= "3" id="desc" ></textarea>
-    <label class="mdl-textfield__label" for="sample5">Description...</label>
+    <input class="mdl-textfield__input" type="text" id="title">
+    <label class="mdl-textfield__label" for="sample1">Email</label>
+  </div>
+</form>
+  
+
+<!-- Simple Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="desc">
+    <label class="mdl-textfield__label" for="sample1">Description</label>
   </div>
 </form>
 
 <br>
 <div class="center">
-<!-- Raised button with ripple -->
-<a href="javascript:{}" onclick="submitEvent();"">
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple" >
+
+<a ref="javascript:{}" onclick="submitEvent();">
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
   Create Event
 <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
 </a>
