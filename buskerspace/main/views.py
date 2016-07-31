@@ -90,7 +90,8 @@ def viewEvent(request, event_id):
 
 def map(request):
 	# Display nearby buskers
-	events = Event.objects.filter(event_datetime__lte=timezone.now());
+	#events = Event.objects.filter(event_datetime__lte=timezone.now());
+	events = Event.objects.all();
 	#ids = list()
 	#for event in events:
 	#	hrs = int(event.event_duration)
