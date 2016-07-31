@@ -128,9 +128,11 @@ def createEvent(request):
 						  busker=busker[0]);
 		except (KeyError):
 			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
-		else:
-			event.save()
-			return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
+		if (event.event_duration > 9):
+			return render(Request, 'newevent.html', { 'error_message'; 'Duration cannot be more than 9 hours.' });
+		
+		event.save()
+		return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
 			
 def createBusker(request):
 	if 'email' not in request.POST:
