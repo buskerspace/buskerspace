@@ -126,10 +126,17 @@ function initMapEdit() {
 function initMapView() {
 
     var event = {
+	{% if event %}
+		lat: {{ event.event_lat }},
+		lng: {{ event.event_lng }},
+		title: {{ event.event_title }},
+		type: {{ event.genre }}
+	{% else %}
         lat: -37.800089,
         lng: 144.964451,
         title: 'UNIHACK2016',
         type: 'musical'
+	{% endif %}
     };
 
     mapView = new google.maps.Map(document.getElementById('map-view'), {
