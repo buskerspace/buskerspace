@@ -16,19 +16,19 @@ def viewBusker(request, user_id):
 	busker = Busker.objects.get(pk=user_id)
 	events = Event.objects.filter(busker=user_id)
 	if not busker:
-		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.', })
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.', 'genre': busker.genre.title() })
 		
 	if 'email' not in request.POST:
-		return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, })
+		return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, 'genre': busker.genre.title() })
 	
 	b = Busker.objects.filter(email=request.POST.get('email'));
 	if not b:
-		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker does not exist!', 'busker': busker, 'events': events })
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker does not exist!', 'busker': busker, 'events': events, 'genre': busker.genre.title() })
 		
 	password = make_password(password=request.POST.get('password'), salt=None, hasher='unsalted_md5')
 	b2 = Busker.objects.filter(pw_hash=password)
 	if not b2 or not (b2[0].email == b[0].email):
-		return render(request, 'buskerviewedit.html', { 'error_message': 'Invalid password or email', 'busker': busker, 'events': events })
+		return render(request, 'buskerviewedit.html', { 'error_message': 'Invalid password or email', 'busker': busker, 'events': events, 'genre': busker.genre.title() })
 	
 	b = Busker.objects.get(pk=user_id)
 	name = request.POST.get('name')
@@ -43,25 +43,25 @@ def viewBusker(request, user_id):
 		b.busker_desc = desc
 		
 	b.save()
-	return render(request, 'buskerviewedit.html', { 'error_message': 'Success!', 'busker': busker, 'events': events })
+	return render(request, 'buskerviewedit.html', { 'error_message': 'Success!', 'busker': busker, 'events': events, 'genre': busker.genre.title() })
 	
 def viewEvent(request, event_id):
 	try:
 		event = Event.objects.get(pk=event_id)
 	except (ObjectDoesNotExist):
-		return render(request, 'eventviewedit.html', { 'error_message': 'Event not found.', })
+		return render(request, 'eventviewedit.html', { 'error_message': 'Event not found.', 'genre': event.busker.genre.title() })
 	
 	if 'buskeremail' not in request.POST:
-		return render(request, 'eventviewedit.html', { 'event': event, })
+		return render(request, 'eventviewedit.html', { 'event': event, 'genre': event.busker.genre.title() })
 	
 	busker = Busker.objects.filter(email=request.POST.get('buskeremail'))
 	if not busker:
-		return render(request, 'eventviewedit.html', { 'event': event, 'error_message': 'Busker does not exist!' })
+		return render(request, 'eventviewedit.html', { 'event': event, 'error_message': 'Busker does not exist!', 'genre': event.busker.genre.title() })
 		
 	password = make_password(password=request.POST.get('password'), salt=None, hasher='unsalted_md5');
 	b = Busker.objects.filter(pw_hash=password)
 	if not b or not (b[0].email == busker[0].email):
-		return render(request, 'eventviewedit.html', { 'error_message': 'Invalid password or email' })
+		return render(request, 'eventviewedit.html', { 'error_message': 'Invalid password or email', 'genre': event.busker.genre.title() })
 		
 	event = Event.objects.get(pk=event_id)
 	title = request.POST.get('title')
@@ -86,7 +86,7 @@ def viewEvent(request, event_id):
 		event.duration = duraton;
 		
 	event.save()
-	return render(request, 'eventviewedit.html', { 'event': event, 'error_message': 'Success!' })
+	return render(request, 'eventviewedit.html', { 'event': event, 'error_message': 'Success!', 'genre': event.busker.genre.title() })
 
 def map(request):
 	# Display nearby buskers
