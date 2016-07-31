@@ -129,7 +129,7 @@ def createEvent(request):
 		except (KeyError):
 			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
 		if (event.event_duration > 9):
-			return render(Request, 'newevent.html', { 'error_message'; 'Duration cannot be more than 9 hours.' });
+			return render(Request, 'newevent.html', { 'error_message': 'Duration cannot be more than 9 hours.' });
 		
 		event.save()
 		return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
