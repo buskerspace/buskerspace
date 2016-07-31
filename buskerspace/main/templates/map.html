@@ -106,12 +106,13 @@ function onLoad() {
 		lat: {{ e.event_lat }},
 		lng: {{ e.event_lng }},
 		title: '{{ e.event_title }}',
-		type: 'musical',
+		type: '{{ e.busker.genre }}',
 		desc: '{{ e.event_desc }}',
 		buskerid: {{ e.busker.pk }},
 		buskername: '{{ e.busker.busker_name }}',
 		datetime: '{{ e.event_datetime }}',
-		duration: {{ e.event_duration }}
+		duration: {{ e.event_duration }},
+		eventid: {{ e.pk }},
 	};
 	addEvent(event);
 	{% endfor %}
@@ -150,7 +151,7 @@ function addEvent(event) {
 
     // Create InfoWindow
 
-    var window = '<div onclick="location.href = \'/events/' + event.eventid + '/\'" style="cursor:pointer">' +
+    var window = '<div onclick="location.href = \'/view/event/' + event.eventid + '/\'" style="cursor:pointer">' +
         '<p><span class="eventtitle">' + event.title + '</span></p>' +
 		'<span class="eventtime">' + event.datetime + " for " + event.duration + " hours</span>" +
         '<p><a href="/view/busker/' + event.buskerid + '/">' +
@@ -174,7 +175,7 @@ function addEvent(event) {
     });
 
     infoWindow.addListener('', function() {
-        window.location.href = "/events/" + event.eventid + "/";
+        window.location.href = "/view/event/" + event.eventid + "/";
     });
 
     // Add event to list
