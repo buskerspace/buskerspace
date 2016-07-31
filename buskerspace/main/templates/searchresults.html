@@ -56,7 +56,7 @@ width: 50%;
    }(document, 'script', 'facebook-jssdk'));
 </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buskerspace: Search Results</title>
+    <title>buskerspace: Search Results</title>
 
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -69,18 +69,20 @@ width: 50%;
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
 
-        <a class="mdl-navigation__link" href="search.html">Search</a>
-        <a class="mdl-navigation__link" href="map.html">Map</a>
-        <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
+		<a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
       </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="search.html">Search</a>
-      <a class="mdl-navigation__link" href="map.html">Map</a>
-      <a class="mdl-navigation__link" href="myprofile.html">My Profile</a>
+<a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -95,13 +97,12 @@ width: 50%;
 
 <ul style="padding-left: 50px;" class="mdl-list">
 {% for busker in buskers %}
- <li class="mdl-list__item--three-line">
+ <li class="mdl-list__item--three-line" style="border-bottom-style: solid; margin-right: 4em; border-color: lightgray; border-bottom-width: 2px;">
   <span class="mdl-list__item-primary-content">
-   <span>{{ busker.busker_name }}</span>
+   <span><a href="/view/busker/{{ busker.pk }}/">{{ busker.busker_name }}</a></span>
    <span class="mdl-list__item-text-body">{{ busker.busker_desc }}</span>
   </span>
   <span class="mdl-list__item-secondary-content">
-   <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
   </span>
  </li>
 {% endfor %}

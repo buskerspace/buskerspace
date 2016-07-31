@@ -203,11 +203,17 @@ function initMapView() {
 
 }
 
+function getID() {
+	str = window.location.href;
+	list = str.split('/');
+	return list[list.length - 2];
+}
+
 function submitEvent() {
 
-    var path = "/new/event/";
+    var path = "/view/event/" + getID() + '/';
 
-    var form = document.createElement("form");
+    var form = document.getElementById("dummy_form");
     form.setAttribute("method", "post");
     form.setAttribute("action", path);
 
@@ -243,7 +249,15 @@ function submitEvent() {
     {
         name: "duration",
         value: document.getElementById("duration").value
-    }
+    },
+	{
+		name: "password",
+		value: document.getElementById("password").value
+	},
+	{
+		name: "eventid",
+		value: getID()
+	}
     ];
 
     for (var i = 0, field; field = fields[i]; i++) {
@@ -256,28 +270,6 @@ function submitEvent() {
 
     document.body.appendChild(form);
     form.submit();
-}
-
-function revGeocode(lat, lng) {
-    geocoder.geocode(
-        {
-            'location': {
-                lat: lat,
-                lng: lng
-            }
-        },
-        function(results, status) {
-            if (status === 'OK') {
-                if (results[1]) {
-                    console.log(results[1].formatted_address);
-                } else {
-                    console.log('Reverse geocoding failed for (' +
-                        lat + ', ' + lng);
-                }
-            } else {
-                console.log('Geocoder failed with error: ' + status);
-            }
-        });
 }</script>
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap&libraries=places"></script>
       <script>
@@ -297,7 +289,7 @@ function revGeocode(lat, lng) {
           }(document, 'script', 'facebook-jssdk'));
       </script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Buskerspace: Event</title>
+      <title>buskerspace: Event</title>
       <!-- Always shows a header, even in smaller screens. -->
       <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
          <header class="mdl-layout__header">
@@ -308,20 +300,20 @@ function revGeocode(lat, lng) {
                <div class="mdl-layout-spacer"></div>
                <!-- Navigation. We hide it in small screens. -->
                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                  <a class="mdl-navigation__link" href="search.html">Search</a>
-                  <a class="mdl-navigation__link" href="map.html">Map</a>
-                  <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-                  <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+                  <a class="mdl-navigation__link" href="/search/">Search</a>
+                  <a class="mdl-navigation__link" href="/">Map</a>
+                  <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+                  <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
                </nav>
             </div>
          </header>
          <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Menu</span>
             <nav class="mdl-navigation">
-               <a class="mdl-navigation__link" href="search.html">Search</a>
-               <a class="mdl-navigation__link" href="map.html">Map</a>
-               <a class="mdl-navigation__link" href="newbusker.html">Create New Busker</a>
-               <a class="mdl-navigation__link" href="newevent.html">Create Event</a>
+               <a class="mdl-navigation__link" href="/search/">Search</a>
+               <a class="mdl-navigation__link" href="/">Map</a>
+               <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+               <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
             </nav>
          </div>
          <main class="mdl-layout__content">
@@ -332,13 +324,18 @@ function revGeocode(lat, lng) {
                      <a href="#edit-panel" class="mdl-tabs__tab">Edit</a>
                   </div>
                   <div class="mdl-tabs__panel is-active center" id="view-panel">
-                     <h1>Super Fantastic Title</h1>
-                     <h4>Super Awesome Busker Name</h4>
-                     <h5>Super interesting Genre</h5>
-                     <h6>Date: 23/09/1223 Time: 10AM Duation: 1 Hour</h6>
+				  {% if error_message %}
+					 <h4>{{ error_message }}</h4>
+			      {% endif %}
+				  {% if event %}
+                     <h1>{{ event.event_title }}</h1>
+                     <h4>{{ event.busker.busker_name }}</h4>
+                     <h5>Genre: {{ event.busker.genre }}</h5>
+                     <h6>{{ event.event_datetime }} for {{ event.event_duration }} hours</h6>
                      <div id="map-view"></div>
                      <!--- map -->
-                     <div style="margin: 5%">Hide at bottom of staircase to trip human climb a tree, wait for a fireman jump to fireman then scratch his face or play riveting piece on synthesizer keyboard so wake up human for food at 4am yet sleep on dog bed, force dog to sleep on floor but my left donut is missing, as is my right. Attack feet. </div>
+                     <div style="margin: 5%">{{ event.event_desc }}</div>
+				   {% endif %}
                   </div>
                   <div class="mdl-tabs__panel center" id="edit-panel">
                      <div class="page-content center">
@@ -372,7 +369,7 @@ function revGeocode(lat, lng) {
                         <a class="mdl-navigation__link">Enter a new date and time...</a>    
                         <br>
                         <br>
-                        <input type="date" id="myDate" value="2016-08-1"> <!--W3 Schools for JS help -->
+                        <input type="date" id="myDate" value="2016-08-01"> <!--W3 Schools for JS help -->
                         <input type="time" id="myTime" value="12:00:00">
                         <!-- Numeric Textfield with Floating Label -->
                         <form action="#">
@@ -404,5 +401,8 @@ function revGeocode(lat, lng) {
       </div>
       </main>
       </div>
+	  <form id="dummy_form">
+	  {% csrf_token %} 
+	  </form>
       </body>
 </html>

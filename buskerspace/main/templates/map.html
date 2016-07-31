@@ -29,7 +29,8 @@ var icons = undefined;
 /* Initialise the map */
 function initMap() {
 
-    var initialCoords = {lat: -37.800089, lng: 144.964451};
+    var initialCoords = {lat: {% if lat %}{{ lat }} {% else %} -37.800089 {% endif %},
+						 lng: {% if lng %}{{ lng }} {% else %} 144.964451 {% endif %}};
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
@@ -37,6 +38,7 @@ function initMap() {
         clickableIcons: false
     });
 
+	{% if not lat %}
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
             map.panTo(new google.maps.LatLng(
@@ -47,7 +49,8 @@ function initMap() {
             console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
         });
     }
-
+	{% endif %}
+	
     icons = {
         musical: {
             url: imgurl + 'icon-musical.png',
@@ -101,7 +104,9 @@ function onLoad() {
 		type: 'musical',
 		desc: '{{ e.event_desc }}',
 		buskerid: {{ e.busker.pk }},
-		buskername: '{{ e.busker.busker_name }}'
+		buskername: '{{ e.busker.busker_name }}',
+		datetime: '{{ e.event_datetime }}',
+		duration: {{ e.event_duration }}
 	};
 	addEvent(event);
 	{% endfor %}
@@ -142,6 +147,7 @@ function addEvent(event) {
 
     var window = '<div onclick="location.href = \'/events/' + event.eventid + '/\'" style="cursor:pointer">' +
         '<p><span class="eventtitle">' + event.title + '</span></p>' +
+		'<span class="eventtime">' + event.datetime + " for " + event.duration + " hours</span>" +
         '<p><a href="/view/busker/' + event.buskerid + '/">' +
             '<span class="eventname">' + event.buskername + '</span>' + 
         '</a></p>' +
@@ -248,13 +254,13 @@ function filterEvents() {
           }(document, 'script', 'facebook-jssdk'));
       </script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Buskerspace: Home</title>
+      <title>buskerspace: Home</title>
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Buskerspace</span>
+      <span class="mdl-layout-title">buskerspace</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
