@@ -52,10 +52,11 @@ def search(request):
 	return render(request, "search.html")
 	
 def viewBusker(request, user_id):
-	busker = Busker.objects.get(pk=user_id)
+	busker = Busker.objects.filter(pk=user_id)
 	events = Event.objects.filter(busker=user_id)
 	if not busker:
-		return render(request, 'buskerviewedit.html', { 'error_message': 'Busker not found.', 'genre': busker.genre.title() })
+		return render(request, 'map.html')
+	busker = busker[0]
 		
 	if 'email' not in request.POST:
 		return render(request, 'buskerviewedit.html', { 'busker': busker, 'events': events, 'genre': busker.genre.title() })
