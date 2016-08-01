@@ -169,8 +169,8 @@ def createEvent(request):
 						  busker=busker[0]);
 		except (KeyError):
 			return render(request, 'newevent.html', { 'error_message': 'One or more fields were blank!' })
-		if (float(event.event_duration) > 9):
-			return render(Request, 'newevent.html', { 'error_message': 'Duration cannot be more than 9 hours.' });
+		if (float(event.event_duration) >= 24):
+			return render(Request, 'newevent.html', { 'error_message': 'Duration cannot be more than 24 hours.' });
 		
 		event.save()
 		return render(request, 'newevent.html', { 'error_message': 'Successfully created!' })
