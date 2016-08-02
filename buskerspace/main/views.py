@@ -89,7 +89,7 @@ def viewEvent(request, event_id):
 	try:
 		event = Event.objects.get(pk=event_id)
 	except (ObjectDoesNotExist):
-		return render(request, 'eventviewedit.html', { 'error_message': 'Event not found.', 'genre': event.busker.genre.title() })
+		return render(request, 'map.html')
 	
 	if 'buskeremail' not in request.POST:
 		return render(request, 'eventviewedit.html', { 'event': event, 'genre': event.busker.genre.title() })
@@ -201,6 +201,8 @@ def createBusker(request):
 	return render(request, 'newbusker.html', { 'error_message': 'Success!' })
 
 def results(request):
+    if (request.POST.get('search') == ''):
+        return render(request, 'search.html', { 'error_message': 'Empty search.' })
     buskers = Busker.objects.filter(get_query(request.POST.get('search'), [ 'busker_name', 'busker_desc', ]))
     if not buskers:
         return render(request, 'search.html', { 'error_message': 'No matches found. :(' })
