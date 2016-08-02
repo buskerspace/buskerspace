@@ -7,6 +7,14 @@ urlpatterns = [
 	url(r'^$', views.map, name='map'),
 	# path is /search/
 	url(r'^search/', views.search, name='search'),
-	# path is /search/USER_ID/
-	url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile, name='profile'),
+	# path is /view/busker/USER_ID/
+	url(r'^view/busker/(?P<user_id>[0-9]+)/$', views.viewBusker, name='viewBusker'),
+	# path is /view/event/EVENT_ID/
+	url(r'^view/event/(?P<event_id>[0-9]+)/$', views.viewEvent, name='viewEvent'),
+	# path is /new/event/
+	url(r'^new/event/', views.createEvent, name="createEvent"),
+	# path is /new/busker/
+	url(r'^new/busker/', views.createBusker, name="createBusker"),
+	# path is /searchresults/
+	url(r'^searchresults/', views.results, name="results")
 ]

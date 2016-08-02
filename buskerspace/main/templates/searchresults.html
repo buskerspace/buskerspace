@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+.center {
+
+text-align: center;
+
+
+}
+
+.centerimg {
+
+display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.smallimg {
+
+height: 50%;
+width: 50%;
+
+}
+
+.center1 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+
+}
+
+.logo {
+	height: 30pt;
+	width: 30pt;
+	}
+</style>
+
+<head>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/logo-blue-32.png" />
+<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1348158388546594',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+ 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buskerspace | Search Results</title>
+
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title"><a href="/"><img class="logo" src="https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/logo-white-512.png" /></a>&nbsp;&nbsp;&nbsp;Search Results</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+
+		<a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Menu</span>
+    <nav class="mdl-navigation">
+<a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content"><!-- Your content goes here -->
+
+<!-- Three Line List with secondary info and action -->
+<style>
+.demo-list-three {
+  width: 650px;
+}
+</style>
+
+<ul style="padding-left: 50px;" class="mdl-list">
+{% for busker in buskers %}
+ <li class="mdl-list__item--three-line" style="border-bottom-style: solid; margin-right: 4em; border-color: lightgray; border-bottom-width: 2px;">
+  <span class="mdl-list__item-primary-content">
+   <span><a href="/view/busker/{{ busker.pk }}/">{{ busker.busker_name }}</a></span>
+   <span class="mdl-list__item-text-body">{{ busker.busker_desc }}</span>
+  </span>
+  <span class="mdl-list__item-secondary-content">
+  </span>
+ </li>
+{% endfor %}
+</ul>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

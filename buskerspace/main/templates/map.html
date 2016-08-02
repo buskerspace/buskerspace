@@ -1,72 +1,339 @@
 <!DOCTYPE html>
 <html>
+   <head>
+      <style>
+         #map {
+         width: 100%;
+         height: 90vh;
+         position: relative;
+         }
+.eventtitle {
+         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: .02em;
+          color: #37474f
+         }
+.eventname {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: .04em;
+  color: #ff6d00;
+   text-decoration: underline;
+}
+         .eventdesc {
+         font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0
+         } 
+	 .logo {
+	height: 30pt;
+	width: 30pt;
+	}
+      </style>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
+      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/logo-blue-32.png" />
+      <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+      <script type="text/javascript">
+	  var map = undefined;
+var events = undefined;
+var filters = undefined;
 
-<head>
+var imgurl = 'https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/';
+var icons = undefined;
 
-    <style>
-       #map {
-        width: 100%;
-        height: 600px;
-      }
-    </style>
+/* Initialise the map */
+function initMap() {
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-indigo.min.css" />
-<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    var initialCoords = {lat: {% if lat %}{{ lat }} {% else %} -37.800089 {% endif %},
+						 lng: {% if lng %}{{ lng }} {% else %} 144.964451 {% endif %}};
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buskerspace: Map</title>
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: initialCoords,
+        clickableIcons: false
+    });
 
+	{% if not lat %}
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            map.panTo(new google.maps.LatLng(
+                position.coords.latitude,
+                position.coords.longitude
+            ));
+        }, function(error) {
+            console.log("Error with geolocation (" + error.code + "): " + error.message + ".");
+        });
+    }
+	{% endif %}
+	
+    icons = {
+        musical: {
+            url: imgurl + 'icon-musical.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        performance: {
+            url: imgurl + 'icon-performance.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        other: {
+            url: imgurl + 'icon-other.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+        },
+        undef: ''
+    };
+
+    onLoad();
+}
+
+/* Initialise JavaScript */
+function onLoad() {
+
+    events = {
+        musicalEvents: [
+            { }
+        ],
+        performanceEvents: [
+            { }
+        ],
+        otherEvents: [
+            { }
+        ],
+    };
+
+    filters = {
+        musicalEvents: true,
+        performanceEvents: true,
+        otherEvents: true
+    };
+	{% for e in events %}
+	event = {
+		lat: {{ e.event_lat }},
+		lng: {{ e.event_lng }},
+		title: '{{ e.event_title }}',
+		type: '{{ e.busker.genre }}',
+		desc: '{{ e.event_desc }}',
+		buskerid: {{ e.busker.pk }},
+		buskername: '{{ e.busker.busker_name }}',
+		datetime: '{{ e.event_datetime }}',
+		duration: {{ e.event_duration }},
+		eventid: {{ e.pk }},
+	};
+	addEvent(event);
+	{% endfor %}
+}
+
+/* Add the event event to the map */
+function addEvent(event) {
+
+    // Parse event
+
+    var icon = '';
+
+    switch (event.type) {
+        case 'musical':
+            icon = icons.musical;
+            break;
+        case 'performance':
+            icon = icons.performance;
+            break;
+        case 'other':
+            icon = icons.other;
+            break;
+        default:
+            icon = icons.undef;
+            break;
+    }
+
+    // Add marker
+
+    var marker = new google.maps.Marker({
+        map: map,
+        position: {lat: event.lat, lng: event.lng},
+        title: event.title,
+        icon: icon
+    });
+
+    // Create InfoWindow
+
+    var window = '<div onclick="location.href = \'/view/event/' + event.eventid + '/\'" style="cursor:pointer">' +
+        '<p><span class="eventtitle">' + event.title + '</span></p>' +
+		'<span class="eventtime">' + event.datetime + " for " + event.duration + " hours</span>" +
+        '<p><a href="/view/busker/' + event.buskerid + '/">' +
+            '<span class="eventname">' + event.buskername + '</span>' + 
+        '</a></p>' +
+        '<p><span class="eventdesc">' + event.desc + '</span></a></p>' +
+        '</div>';
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: window
+    });
+
+    // Add callbacks
+
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    });
+
+    google.maps.event.addListener(map, 'click', function() {
+        infoWindow.close();
+    });
+
+    infoWindow.addListener('', function() {
+        window.location.href = "/view/event/" + event.eventid + "/";
+    });
+
+    // Add event to list
+
+    var eventObj = {
+        marker:     marker,
+        infoWindow: infoWindow,
+        type:       event.type,
+        lat:        event.lat,
+        lng:        event.lng,
+        title:      event.title,
+        desc:       event.desc
+    }
+
+    switch (event.type) {
+        case 'musical':
+            events.musicalEvents.push(eventObj);
+            break;
+        case 'performance':
+            events.performanceEvents.push(eventObj);
+            break;
+        case 'other':
+            events.otherEvents.push(eventObj);
+            break;
+    }
+
+}
+
+/* Filter events */
+function filterEvents() {
+
+    var toggle;
+
+    // Musical
+    toggle = document.getElementById("checkbox-1").checked;
+
+    if (toggle != filters.musicalEvents) {
+        setVisibility(events.musicalEvents, toggle);
+        filters.musicalEvents = toggle;
+    }
+
+    // Performance
+    toggle = document.getElementById("checkbox-2").checked;
+    if (toggle != filters.performanceEvents) {
+        setVisibility(events.performanceEvents, toggle);
+        filters.performanceEvents = toggle;
+    }
+
+    // Other
+    toggle = document.getElementById("checkbox-3").checked;
+    if (toggle != filters.otherEvents) {
+        setVisibility(events.otherEvents, toggle);
+        filters.otherEvents = toggle;
+    }
+
+    function setVisibility(eventList, toggle) {
+
+        for (var i = 1, event; event = eventList[i]; i++) {
+            if (toggle)
+                event.marker.setMap(map);
+            else
+                event.marker.setMap(null);
+        }
+    }
+}</script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap"></script>
+      <script>
+         window.fbAsyncInit = function() {
+           FB.init({
+             appId      : '1348158388546594',
+             xfbml      : true,
+             version    : 'v2.7'
+           });
+         };
+         
+         (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+      </script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>buskerspace | Home</title>
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Map</span>
+      <span class="mdl-layout-title"><a href="/"><img class="logo" src="https://raw.githubusercontent.com/buskerspace/buskerspace/master/buskerspace/webapp/image/logo-white-512.png" /></a>&nbsp;&nbsp;&nbsp;buskerspace</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
 
-        <a class="mdl-navigation__link" href="home.html">Home</a>
-        <a class="mdl-navigation__link" href="search.html">Search</a>
-        <a class="mdl-navigation__link" href="filter.html">Filter</a>
-        <a class="mdl-navigation__link" href="map.html">Map</a>
+        <a class="mdl-navigation__link" href="/search/">Search</a>
+        <a class="mdl-navigation__link" href="/">Map</a>
+        <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+        <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
       </nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Map</span>
+    <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="home.html">Home</a>
-      <a class="mdl-navigation__link" href="search.html">Search</a>
-      <a class="mdl-navigation__link" href="filter.html">Filter</a>
-      <a class="mdl-navigation__link" href="map.html">Map</a>
+      <a class="mdl-navigation__link" href="/search/">Search</a>
+      <a class="mdl-navigation__link" href="/">Map</a>
+      <a class="mdl-navigation__link" href="/new/busker/">Create New Busker</a>
+      <a class="mdl-navigation__link" href="/new/event/">Create Event</a>
     </nav>
-  </div>
-  <main class="mdl-layout__content">
-    <div class="page-content">
-      
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var mapDiv = document.getElementById('map');
-        var map = new google.maps.Map(mapDiv, {
-            center: {lat: 44.540, lng: -78.546},
-            zoom: 8
-        });
-      }
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43XXDD2XDa9NGxeDZkVLrdz7sA5T4a-k&callback=initMap">
-    </script>
-
-    </div>
-
-
-
-  </main>
-</div>
-
-</body>
+    <span class="mdl-layout-title">Map Filters</></span>
+            <div class="mdl-navigation">
+               <a class="mdl-navigation__link">Genres</a>
+               <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+               <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+               <span class="mdl-checkbox__label">Musician</span>
+               </label>
+               <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+               <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
+               <span class="mdl-checkbox__label">Performer</span>
+               </label>
+               <label class="mdl-navigation__link" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3">
+               <input type="checkbox" id="checkbox-3" class="mdl-checkbox__input" checked>
+               <span class="mdl-checkbox__label">Other</span>
+               </label>
+               <!-- Raised button with ripple -->
+               <button onclick="filterEvents()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+               Apply
+               </button>
+            </div>
+         </div>
+   
+            
+  
+         <main class="mdl-layout__content">
+            <div class="page-content">
+               <div id="map"></div>
+               <!--- map -->
+            </div>
+         </main>
+      </div>
+      </body>
 </html>
+
